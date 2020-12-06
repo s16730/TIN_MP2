@@ -1,0 +1,42 @@
+.author {
+  &--list-item {
+    color: $white;
+
+    .author__name {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+
+  &--full {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .author__photo {
+      width: 300px;
+      max-height: 500px;
+      margin-right: 35px;
+    }
+
+    .author__info {
+      > div {
+        margin-bottom: 10px;
+      }
+
+      &__name {
+        margin: 25px 0;
+      }
+
+    }
+
+    .author__description {
+      margin-top: 25px;
+      width: 100%;
+
+      @media (max-width: 680px) {
+        margin-top: 0;
+      }
+    }
+  }
+}

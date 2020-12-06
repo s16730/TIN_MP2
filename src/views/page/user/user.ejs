@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Biblioteczka</title>
+  <link rel="stylesheet"
+        type="text/css"
+        href="../dist/main.css"
+  >
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+<body>
+
+
+<header class="header">
+  <div class="header__top-bar container">
+    <div class="brand">
+      <img src="../images/960x960.png"
+           alt="Logo"
+           class="brand__logo"
+      />
+      <span class="brand__name fc-white fw-700">
+        Biblioteczka
+      </span>
+    </div>
+
+    <div class="account account--logged-in">
+      <a class="account__block"
+         href="user.html"
+      >
+        <img class="account__block__image"
+             src="../images/person.png"
+             alt="User avatar"
+        >
+        <span class="account__block__name">Lorem ipsum</span>
+      </a>
+    </div>
+  </div>
+  <div class="header__menu">
+    <nav class="header__menu__list container">
+      <a class="header__menu__list__item"
+         href="../index.html"
+      >
+        Strona główna
+      </a>
+      <a class="header__menu__list__item"
+         href="shelves.html"
+      >
+        Półki
+      </a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="section section--user  section--background-light">
+    <h1 class="visually-hidden">Szczegóły użytkownika</h1>
+    <div class="container user user--full">
+      <div class="actions actions--user">
+        <a class="actions__action"
+           href="register.html"
+        >
+          Edytuj
+        </a>
+        <a class="actions__action">
+          Zmień hasło
+        </a>
+      </div>
+      <div class="user__avatar">
+        <img src="../images/person.png"
+             alt="User avatar"
+        >
+      </div>
+      <div class="user__info">
+        <div class="user__info__username">
+          <span>Nazwa użytkownika:</span>
+          <span>Lorem ipsum</span>
+        </div>
+        <div class="user__info__email">
+          <span>
+            E-mail:
+          </span>
+          <span>
+            example@example.com
+          </span>
+        </div>
+        <div class="user__info__creation-date">
+          <span>
+            Data utworzenia:
+          </span>
+          <span>
+            01.06.2016
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--shelves">
+    <div class="container">
+      <h1>
+        Półki
+      </h1>
+      <div class="list list--list">
+        <a class="list__item shelf shelf--list-item"
+           href="./shelf.html"
+        >
+          <img class="shelf__icon"
+               src="../images/960x960.png"
+               alt="Miniatura"
+          >
+          <span class="shelf__name">S-F</span>
+          <span class="shelf__count">13 pozycji</span>
+        </a>
+        <a class="list__item shelf shelf--list-item"
+           href="./shelf.html"
+        >
+          <img class="shelf__icon"
+               src="../images/960x960.png"
+               alt="Miniatura"
+          >
+          <span class="shelf__name">Kryminał</span>
+          <span class="shelf__count">65 pozycji</span>
+        </a>
+        <a class="list__item shelf shelf--list-item"
+           href="./shelf.html"
+        >
+          <img class="shelf__icon"
+               src="../images/960x960.png"
+               alt="Miniatura"
+          >
+          <span class="shelf__name">Fantasy</span>
+          <span class="shelf__count">26 pozycji</span>
+        </a>
+        <a class="list__item shelf shelf--list-item"
+           href="./shelf.html"
+        >
+          <img class="shelf__icon"
+               src="../images/960x960.png"
+               alt="Miniatura"
+          >
+          <span class="shelf__name">Do przeczytania</span>
+          <span class="shelf__count">235 pozycji</span>
+        </a>
+        <a class="list__item shelf shelf--list-item"
+           href="./shelf.html"
+        >
+          <img class="shelf__icon"
+               src="../images/960x960.png"
+               alt="Miniatura"
+          >
+          <span class="shelf__name">Przeczytane</span>
+          <span class="shelf__count">65 pozycji</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>
+    Bartłomiej Mazurowski, s16730
+  </span>
+</footer>
+
+<script src="../dist/bundle.js"></script>
+</body>
+</html>

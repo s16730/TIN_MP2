@@ -1,0 +1,45 @@
+.book {
+
+  &--list-item {
+    .book__title, .book__author {
+      color: $white;
+      margin: 5px 0;
+      display: block;
+    }
+
+    .book__title {
+      font-weight: 700;
+    }
+
+    .book__author {
+    }
+  }
+
+  &--full {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .book__cover {
+      width: 300px;
+      max-height: 500px;
+      margin-right: 35px;
+    }
+
+    .book__info {
+      > div {
+        margin-bottom: 10px;
+      }
+
+      &__title {
+        margin: 25px 0;
+      }
+
+    }
+
+    .book__description {
+      margin-top: 25px;
+      width: 100%;
+    }
+  }
+}

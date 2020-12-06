@@ -1,0 +1,54 @@
+.user {
+
+  &.user--full {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .user__avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: $white;
+      border-radius: 10px;
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      margin-right: 25px;
+
+      img {
+        display: block;
+      }
+
+      @media (max-width: 480px) {
+        margin: 0;
+      }
+    }
+
+    .user__info {
+      margin-top: 15px;
+
+      @media (max-width: 480px) {
+        margin-top: 30px;
+      }
+
+      span {
+        display: block;
+      }
+
+      [class^="user__info__"] {
+        margin-bottom: 10px;
+
+        span:first-child {
+          margin-bottom: 5px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

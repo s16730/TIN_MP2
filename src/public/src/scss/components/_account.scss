@@ -1,0 +1,46 @@
+.account {
+  display: flex;
+  align-items: center;
+
+  &__block {
+    display: flex;
+    align-items: center;
+    background: $main-background-dark;
+    padding: 10px;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+
+    &:hover {
+      text-decoration: none;
+      background: $main-background;
+    }
+
+    &__image {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      display: block;
+      margin-right: 10px;
+    }
+
+    &__name {
+      display: block;
+      color: $white;
+    }
+  }
+
+  @media (max-width: 680px) {
+    margin-top: 15px;
+  }
+
+  &--logged-out {
+    @media (max-width: 680px) {
+      justify-content: space-between;
+
+      .button {
+        width: calc(50% - 15px);
+        margin: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.actions {
+  right: 0;
+  position: absolute;
+  background: $main-background;
+  border-radius: 10px;
+  padding: 0 15px;
+
+  &:before, &:after {
+    display: block;
+    content: '';
+    width: 15px;
+    height: 3px;
+    background: black;
+
+    position: absolute;
+    top: -13px;
+    right: 2px;
+    cursor: pointer;
+
+    @media (min-width: 991px) {
+      display: none;
+    }
+  }
+
+  &:before {
+    transform: rotateZ(-45deg);
+  }
+
+  &:after{
+    transform: rotateZ(45deg);
+  }
+
+  &__action {
+    display: block;
+    margin: 10px auto;
+  }
+}

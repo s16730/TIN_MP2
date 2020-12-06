@@ -1,0 +1,30 @@
+.container {
+  width: 1240px;
+  margin: 0 auto;
+  padding: 0;
+
+  @media (max-width: 1280px){
+    width: 760px;
+  }
+
+  @media (max-width: 991px) {
+    width: 100%;
+    padding: 0 15px;
+  }
+}
+
+.full-width {
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  width: 100vw !important;
+}
+
+
+.visually-hidden{
+  visibility: hidden;
+  height: 0;
+  z-index: -1000;
+  position: absolute;
+  opacity: 0;
+  overflow: hidden;
+}

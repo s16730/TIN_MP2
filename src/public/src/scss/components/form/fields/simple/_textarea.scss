@@ -1,0 +1,12 @@
+%field--textarea {
+  width: 100%;
+
+  .field__label {
+    display: block;
+
+    textarea {
+      width: 100%;
+      min-height: 400px;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@import "simple/text";
+@import "simple/password";
+@import "simple/textarea";
+@import "simple/submit";
+
+
+.field {
+  width: 400px;
+  max-width: 100%;
+
+  input {
+    width: 100%;
+    display: block;
+  }
+
+  &.field--text {
+    @extend %field--text;
+  }
+
+  &.field--autocomplete {
+    @extend %field--text;
+  }
+
+  &.field--textarea {
+    @extend %field--textarea;
+  }
+
+  &.field--password {
+    @extend %field--password;
+  }
+
+  &.field--submit {
+    @extend %field--submit;
+  }
+}

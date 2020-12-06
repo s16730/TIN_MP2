@@ -1,0 +1,42 @@
+
+.header {
+  background: $main-background;
+  padding: 25px 0 0;
+
+  &__top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+
+    @media (max-width: 680px) {
+      flex-direction: column;
+    }
+  }
+
+
+  &__menu {
+    background: $main-background-dark;
+    width: 100%;
+    padding: 25px 0;
+
+    &__list {
+      display: flex;
+      justify-content: flex-start;
+
+      &__item {
+        margin-right: 10px;
+        color: $white;
+      }
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+
+        &__item {
+          &:nth-of-type(n + 1){
+            margin-top: 15px;
+          }
+        }
+      }
+    }
+  }
+}

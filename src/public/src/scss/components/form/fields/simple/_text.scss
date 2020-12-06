@@ -1,0 +1,18 @@
+%field--text {
+  .field__label {
+    display: block;
+    margin-bottom: 20px;
+
+    &__text {
+      display: block;
+      margin-bottom: 8px;
+      font-size: $font-field-label;
+    }
+
+    &__input {
+      border-radius: 5px;
+      padding: 8px 12px;
+      border: 1px solid $main-background;
+    }
+  }
+}

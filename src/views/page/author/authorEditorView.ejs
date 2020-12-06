@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Biblioteczka</title>
+  <link rel="stylesheet"
+        type="text/css"
+        href="../dist/main.css"
+  >
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+<body>
+
+
+<header class="header">
+  <div class="header__top-bar container">
+    <div class="brand">
+      <img src="../images/960x960.png"
+           alt="Logo"
+           class="brand__logo"
+      />
+      <span class="brand__name fc-white fw-700">
+        Biblioteczka
+      </span>
+    </div>
+
+    <div class="account account--logged-out">
+      <a class="account__button button"
+         href="register.html"
+      >
+        Zarejestruj się
+      </a>
+      <a class="account__button button"
+         href="login.html"
+      >
+        Zaloguj się
+      </a>
+    </div>
+  </div>
+  <div class="header__menu">
+    <nav class="header__menu__list container">
+      <a class="header__menu__list__item"
+         href="../index.html"
+      >
+        Strona główna
+      </a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="section section--author">
+    <form class="form form--author">
+      <h1 class="visually-hidden">Edytuj autora</h1>
+      <div class="container author author--full">
+        <div class="author__photo">
+          <img src="../images/960x960.png"
+               alt="Zdjęcie autora"
+          >
+        </div>
+        <div class="author__info">
+          <div class="field field--text">
+            <label class="field__label">
+              <span class="field__label__text visually-hidden">Imię</span>
+              <input class="field__label__input"
+                     placeholder="Imię"
+                     name="title"
+                     type="text"
+                     value="Jan"
+              >
+            </label>
+          </div>
+          <div class="field field--text">
+            <label class="field__label">
+              <span class="field__label__text visually-hidden">Nazwisko</span>
+              <input class="field__label__input"
+                     placeholder="Nazwisko"
+                     name="title"
+                     type="text"
+                     value="Nowak"
+              >
+            </label>
+          </div>
+        </div>
+        <div class="author__description">
+          <div class="field field--textarea">
+            <label class="field__label">
+              <span class="field__label__text">Bio:</span>
+              <textarea class="field__label__input"
+                        name="description"
+              >
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel molestie massa. Nam eget vestibulum nibh. Aenean tincidunt sapien metus, ut volutpat orci dictum eget. Curabitur non turpis arcu. Aenean gravida, ex vitae molestie pulvinar, metus eros tincidunt tellus, tristique malesuada turpis magna in augue. Phasellus faucibus ornare cursus. Aenean et consectetur purus. Donec mattis bibendum bibendum. Integer tristique felis sit amet elit scelerisque, id elementum sapien rutrum.
+              </p>
+              <p>
+                Nullam libero libero, tincidunt mollis eros ut, aliquet pellentesque elit. Donec pharetra ultricies semper. Sed a pulvinar massa, a pharetra risus. Nunc sed auctor enim. Donec quis turpis vitae neque iaculis pretium. Etiam efficitur congue turpis sed cursus. Nulla ante diam, sollicitudin nec feugiat vitae, tristique et tortor. Donec pharetra tortor ut nisl sollicitudin convallis. Sed lobortis dolor ut diam faucibus, et laoreet massa fringilla. Proin laoreet egestas sapien vitae cursus. Mauris aliquet nisl augue, non aliquet elit placerat eget. Morbi sed urna dui. Ut vulputate accumsan dui, id faucibus elit blandit ut. Curabitur sagittis dui vel libero aliquet, id varius lacus sollicitudin.
+              </p>
+              <p>
+                Morbi vulputate augue vel cursus dignissim. Sed nec mauris nec ligula gravida tempor. Nunc quis odio quis lectus auctor porta vel eget nulla. Phasellus et vestibulum erat. Vestibulum consequat elit nec ex iaculis porta. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Sed a nibh eros. Pellentesque vulputate in velit at faucibus. Quisque laoreet, urna id volutpat faucibus, nisl dolor pellentesque dolor, eget pharetra nisl massa in ipsum. Integer non vulputate turpis, a efficitur est. Nunc nibh ligula, bibendum ac consectetur non, vestibulum eget tortor.
+              </p>
+            </textarea>
+            </label>
+          </div>
+        </div>
+        <div class="field field--submit">
+          <input class="field__input button"
+                 type="submit"
+                 value="Zapisz"
+          >
+        </div>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>
+    Bartłomiej Mazurowski, s16730
+  </span>
+</footer>
+
+<script src="../dist/bundle.js"></script>
+</body>
+</html>

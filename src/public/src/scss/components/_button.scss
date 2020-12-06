@@ -1,0 +1,16 @@
+.button {
+  padding: 15px 35px;
+  background: $main-background-dark;
+  color: $white;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition-duration: 0.4s;
+
+  &:hover {
+    background: $main-background;
+  }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Biblioteczka</title>
+  <link rel="stylesheet"
+        type="text/css"
+        href="../dist/main.css"
+  >
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+<body>
+
+
+<header class="header">
+  <div class="header__top-bar container">
+    <div class="brand">
+      <img src="../images/960x960.png"
+           alt="Logo"
+           class="brand__logo"
+      />
+      <span class="brand__name fc-white fw-700">
+        Biblioteczka
+      </span>
+    </div>
+
+    <div class="account account--logged-in">
+      <a class="account__block"
+         href="user.html"
+      >
+        <img class="account__block__image"
+             src="../images/person.png"
+             alt="User avatar"
+        >
+        <span class="account__block__name">Edytor</span>
+      </a>
+    </div>
+  </div>
+  <div class="header__menu">
+    <nav class="header__menu__list container">
+      <a class="header__menu__list__item"
+         href="../index.html"
+      >
+        Strona główna
+      </a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="section section--book">
+    <form class="form form--book">
+      <h1 class="container">
+        Dodaj książkę
+      </h1>
+      <div class="container book book--full book--edit">
+        <div class="book__cover">
+          <img src="../images/960x960.png"
+               alt="Okładka"
+          >
+        </div>
+        <div class="book__info">
+          <div class="field field--text">
+            <label class="field__label">
+              <span class="field__label__text visually-hidden">Tytuł</span>
+              <input class="field__label__input"
+                     placeholder="Tytuł"
+                     name="title"
+                     type="text"
+              >
+            </label>
+          </div>
+          <div class="field field--autocomplete">
+            <label class="field__label">
+              <span class="field__label__text visually-hidden">Autor</span>
+              <input class="field__label__input"
+                     placeholder="Autor"
+                     name="author"
+                     type="text"
+              >
+            </label>
+          </div>
+          <div class="field field--text">
+            <label class="field__label">
+              <span class="field__label__text visually-hidden">ISBN</span>
+              <input class="field__label__input"
+                     placeholder="ISBN"
+                     name="isbn"
+                     type="text"
+              >
+            </label>
+          </div>
+        </div>
+        <div class="book__description">
+          <div class="field field--textarea">
+            <label class="field__label">
+              <span class="field__label__text">Opis</span>
+              <textarea class="field__label__input"
+                        placeholder="Opis"
+                        name="description"
+              >
+            </textarea>
+            </label>
+          </div>
+        </div>
+        <div class="field field--submit">
+          <input class="field__input button"
+                 type="submit"
+                 value="Zapisz"
+          >
+        </div>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>
+    Bartłomiej Mazurowski, s16730
+  </span>
+</footer>
+
+<script src="../dist/bundle.js"></script>
+</body>
+</html>
