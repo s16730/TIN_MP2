@@ -77,8 +77,11 @@
       ],
       "@server": [
         "src/Server"
+      ],
+      "@views/*":  [
+        "src/views/*"
       ]
-    },
+    }
   },
   "include": [
     "src/**/*.ts",

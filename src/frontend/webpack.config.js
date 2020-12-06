@@ -7,7 +7,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const config = {
   entry: './src/index.ts',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../public/dist'),
     filename: 'bundle.js'
   },
   devtool: 'inline-source-map',
@@ -55,7 +55,12 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: "src/images", to: "./../images" }
+      ]
+    })
   ]
 };
 

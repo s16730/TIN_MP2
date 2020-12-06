@@ -1,52 +1,4 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <title>Biblioteczka</title>
-  <link rel="stylesheet"
-        type="text/css"
-        href="../dist/main.css"
-  >
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-</head>
-<body>
-
-
-<header class="header">
-  <div class="header__top-bar container">
-    <div class="brand">
-      <img src="../images/960x960.png"
-           alt="Logo"
-           class="brand__logo"
-      />
-      <span class="brand__name fc-white fw-700">
-        Biblioteczka
-      </span>
-    </div>
-
-    <div class="account account--logged-out">
-      <a class="account__button button"
-         href="register.html"
-      >
-        Zarejestruj się
-      </a>
-      <a class="account__button button"
-         href="login.html"
-      >
-        Zaloguj się
-      </a>
-    </div>
-  </div>
-  <div class="header__menu">
-    <nav class="header__menu__list container">
-      <a class="header__menu__list__item"
-         href="../index.html"
-      >
-        Strona główna
-      </a>
-    </nav>
-  </div>
-</header>
+<%- include(viewDir + "/common/header.ejs") %>
 
 
 <main>
@@ -57,7 +9,7 @@
       </h1>
       <div class="container author author--full">
         <div class="author__photo">
-          <img src="../images/960x960.png"
+          <img src="/images/960x960.png"
                alt="Zdjęcie autora"
           >
         </div>
@@ -67,6 +19,7 @@
               <span class="field__label__text visually-hidden">Imię</span>
               <input class="field__label__input"
                      placeholder="Imię"
+                     data-validate="required length"
                      name="title"
                      type="text"
               >
@@ -77,6 +30,7 @@
               <span class="field__label__text visually-hidden">Nazwisko</span>
               <input class="field__label__input"
                      placeholder="Nazwisko"
+                     data-validate="required length"
                      name="title"
                      type="text"
               >
@@ -104,12 +58,5 @@
   </section>
 </main>
 
-<footer class="footer">
-  <span>
-    Bartłomiej Mazurowski, s16730
-  </span>
-</footer>
+<%- include(viewDir + "/common/footer.ejs") %>
 
-<script src="../dist/bundle.js"></script>
-</body>
-</html>

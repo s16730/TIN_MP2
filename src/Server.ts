@@ -35,11 +35,13 @@ if (process.env.NODE_ENV === 'production') {
     app.use(helmet());
 }
 
-app.get('*', (req, res, next) => {
-    console.log("here")
-    next()
-});
-
+const appDir = path.dirname(require.main!.filename)
+const viewDir = appDir + '/views'
+app.use( (req, res, next) => {
+    res.locals.appDir = appDir;
+    res.locals.viewDir = viewDir;
+    return next();
+})
 
 // Add APIs
 app.use('/', BaseRouter);

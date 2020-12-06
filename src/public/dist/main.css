@@ -382,6 +382,8 @@ img {
   align-items: center; }
   .form .form__header {
     margin-bottom: 30px; }
+  .form .error {
+    color: red; }
 
 .form.form--book .field--submit {
   margin-left: 0;

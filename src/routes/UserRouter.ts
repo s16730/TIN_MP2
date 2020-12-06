@@ -9,9 +9,6 @@ import { UserController } from "../controllers/UserController";
 const router = Router();
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
-router.get('/:id', (req, res, next) => {
-  UserController.getUserPage(req, res)
-})
 
 router.get('/all', (req, res, next) => {
   UserController.getUserViewPage(req, res)
@@ -21,14 +18,20 @@ router.get('/register', (req, res, next) => {
   UserController.getRegistrationPage(req, res)
 })
 
-router.get('/:id/edit', (req, res, next) => {
-  UserController.getEditPage(req, res)
-})
 
 router.get('/login', (req, res, next) => {
   UserController.getLoginPage(req, res)
 })
 router.get('/logout', (req, res, next) => {
 })
+
+router.get('/:id/edit', (req, res, next) => {
+  UserController.getEditPage(req, res)
+})
+
+router.get('/:id', (req, res, next) => {
+  UserController.getUserPage(req, res)
+})
+
 
 export default router;
