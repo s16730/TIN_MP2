@@ -1,26 +1,43 @@
-export interface IUser {
-    id: number;
-    name: string;
-    email: string;
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { UserRole } from "./UserRole";
+import { OneToMany } from "typeorm/index";
+import { Shelf } from "./Shelf";
+
+@Entity()
+export class User {
+
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column()
+  email: string
+
+  @Column({
+    unique: true,
+  })
+  username: string;
+
+  @Column({
+    default: false
+  })
+  isSuspended: boolean = false;
+
+  @Column({
+    type: "set",
+    enum: UserRole,
+    default: [UserRole.ANONYMOUS]
+  })
+  roles: UserRole[] = [];
+
+  @OneToMany(
+    type => Shelf,
+    shelf => shelf.owner
+  )
+  shelves!: Shelf[];
+
+  constructor(email: string, username: string, roles: UserRole[] = []) {
+    this.username = username;
+    this.email = email;
+    this.roles = roles;
+  }
 }
-
-class User implements IUser {
-
-    public id: number;
-    public name: string;
-    public email: string;
-
-    constructor(nameOrUser: string | IUser, email?: string, id?: number) {
-        if (typeof nameOrUser === 'string') {
-            this.name = nameOrUser;
-            this.email = email || '';
-            this.id = id || -1;
-        } else {
-            this.name = nameOrUser.name;
-            this.email = nameOrUser.email;
-            this.id = nameOrUser.id;
-        }
-    }
-}
-
-export default User;

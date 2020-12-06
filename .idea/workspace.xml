@@ -39,11 +39,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/entities" />
       <recent name="$PROJECT_DIR$/src/frontned/src" />
       <recent name="$PROJECT_DIR$/src/frontned" />
       <recent name="$PROJECT_DIR$/src/views/page/book" />
-      <recent name="$PROJECT_DIR$/src/views/page/bookView" />
-      <recent name="$PROJECT_DIR$/src/views/page/shelf" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/views" />
@@ -59,7 +59,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607239219365</updated>
-      <workItem from="1607239220424" duration="9928000" />
+      <workItem from="1607239220424" duration="14304000" />
     </task>
     <servers />
   </component>

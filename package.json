@@ -6,7 +6,8 @@
     "lint": "eslint . --ext .ts",
     "start": "node -r module-alias/register ./dist --env=production",
     "start:dev": "nodemon",
-    "test": "nodemon --config ./spec/nodemon.json"
+    "test": "nodemon --config ./spec/nodemon.json",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "nodemonConfig": {
     "watch": [
@@ -70,7 +71,11 @@
     "jet-logger": "^1.0.4",
     "jsonfile": "^6.1.0",
     "module-alias": "^2.2.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "mssql": "^6.2.3",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.29"
   },
   "devDependencies": {
     "@types/command-line-args": "^5.0.0",
