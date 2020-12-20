@@ -22,7 +22,12 @@ router.get('/register', (req, res, next) => {
 router.get('/login', (req, res, next) => {
   UserController.getLoginPage(req, res)
 })
+
+router.post('/login', ((req, res) => {
+}))
+
 router.get('/logout', (req, res, next) => {
+  UserController.logout();
 })
 
 router.get('/:id/edit', (req, res, next) => {

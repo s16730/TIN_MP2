@@ -90,6 +90,12 @@
       ],
       "@views/*": [
         "src/views/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@/*": [
+        "src/*"
       ]
     }
   },

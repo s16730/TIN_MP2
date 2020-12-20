@@ -38,7 +38,6 @@ const { BAD_REQUEST } = StatusCodes;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -128,6 +127,21 @@ dbService.createConnection().then(() => {
       })
 
       bookList = await bookRepository.save(bookList);
+
+      bookList.forEach(book => {
+        const authorNumber = Random.getRandomInt(1, 2);
+        const authors: Set<Author> = new Set<Author>(authorList);
+
+        book.authors = [];
+
+        for (let i = 0; i < authorNumber; i++) {
+          book.authors.push(Random.fromSet(authors))
+        }
+      });
+
+      bookList = await bookRepository.save(bookList);
+
+
 
       const userRepository = getRepository<User>(User);
       let userList: User[] = []

@@ -19,4 +19,8 @@ export class UserController {
   public static getEditPage(req: Request, res: Response) {
     res.render("page/user/register", {})
   }
+
+  static logout() {
+
+  }
 }

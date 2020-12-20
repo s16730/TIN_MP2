@@ -32,7 +32,10 @@ export class Book {
 
   @ManyToMany(
     type => Author,
-    author => author.books
+    author => author.books,
+    {
+      eager: true,
+    }
   )
   @JoinTable()
   authors: Author[];
