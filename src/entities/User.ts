@@ -31,7 +31,10 @@ export class User {
 
   @OneToMany(
     type => Shelf,
-    shelf => shelf.owner
+    shelf => shelf.owner,
+    {
+      cascade: true,
+    }
   )
   shelves!: Shelf[];
 

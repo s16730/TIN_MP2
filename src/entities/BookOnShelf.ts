@@ -1,4 +1,4 @@
-import { CreateDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm/index";
+import { CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm/index";
 import { Shelf } from "@entities/Shelf";
 import { Book } from "@entities/Book";
 
@@ -15,14 +15,16 @@ export class BookOnShelf {
     type => Shelf,
     shelf => shelf.id
   )
+  @JoinColumn({
+    name: "shelfId"
+  })
   shelf!: Shelf;
 
   @ManyToOne(
     type => Book,
     book => book.id
   )
+  @JoinColumn({ name: "bookId" })
   book!: Book;
 
 }
-
-// todo: Connect in ORM

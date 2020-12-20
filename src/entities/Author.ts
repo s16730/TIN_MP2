@@ -1,11 +1,11 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm/index";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm/index";
 import { Book } from "./Book";
 
 @Entity()
 export class Author {
 
   @PrimaryGeneratedColumn()
-  id!:number;
+  id!: number;
 
   @Column({
     type: "text",

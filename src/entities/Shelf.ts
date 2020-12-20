@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm/index";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm/index";
 import { User } from "./User";
 import { Book } from "./Book";
 import { BookOnShelf } from "@entities/BookOnShelf";
@@ -14,15 +14,18 @@ export class Shelf {
 
   @ManyToOne(
     type => User,
-    user => user.shelves
+    // user => user.shelves
   )
+  @JoinColumn({
+    name: "ownerId"
+  })
   owner: User
 
 
-  @ManyToOne(type => BookOnShelf,
+  @OneToMany(type => BookOnShelf,
     bookOnShelf => bookOnShelf.shelf
   )
-  books: BookOnShelf[] = []
+  books!: BookOnShelf[];
 
   constructor(name: string, owner: User) {
     this.name = name;

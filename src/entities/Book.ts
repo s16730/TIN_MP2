@@ -1,5 +1,5 @@
 import { Shelf } from "./Shelf";
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm/index";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm/index";
 import { Author } from "./Author";
 import { BookOnShelf } from "@entities/BookOnShelf";
 
@@ -34,6 +34,7 @@ export class Book {
     type => Author,
     author => author.books
   )
+  @JoinTable()
   authors: Author[];
 
   constructor(title: string, publicationDate: Date, authors: Author[]) {

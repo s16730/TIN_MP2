@@ -1,0 +1,17 @@
+[
+  {
+    "email": "lorem@test.test",
+    "username": "lorem",
+    "role": "AUTHORIZED"
+  },
+  {
+    "email": "ipsum@test.test",
+    "username": "ipsum",
+    "role": "AUTHORIZED"
+  },
+  {
+    "email": "dolor@test.test",
+    "username": "dolor",
+    "role": "AUTHORIZED"
+  }
+]
