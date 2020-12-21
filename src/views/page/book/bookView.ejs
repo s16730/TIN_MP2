@@ -12,7 +12,7 @@
                     <% for (const book of books){ %>
                         <div class="list__item book book--list-item">
                             <img class="book__thumbnail"
-                                 src="./images/960x960.png"
+                                 src="/images/960x960.png"
                                  alt="Miniatura"
                             >
                             <a class="book__title"
@@ -22,11 +22,11 @@
                             </a>
                             <% if (book.authors && Array.isArray(book.authors)) { %>
                                 <% for (const author of book.authors) { %>
-                                <a class="book__author"
-                                   href="/author/<%= author.id %>"
-                                >
-                                    <%= author.name %> <%= author.surname %>
-                                </a>
+                                    <a class="book__author"
+                                       href="/author/<%= author.id %>"
+                                    >
+                                        <%= author.name %> <%= author.surname %>
+                                    </a>
                                 <% } %>
                             <% } %>
                         </div>
@@ -36,78 +36,28 @@
         </section>
     <% } %>
 
-    <section class="section section--authors">
-        <div class="container">
-            <h1>
-                Popularni autorzy
-            </h1>
-            <div class="list list--block">
-                <a class="list__item author author--list-item"
-                   href="./templates/author.html"
-                >
-                    <img class="author__thumbnail"
-                         src="./images/960x960.png"
-                         alt="Miniatura"
-                    >
-                    <span class="author__name">Jan Nowak</span>
-                </a>
-                <a class="list__item author author--list-item"
-                   href="./templates/author.html"
-                >
-                    <img class="author__thumbnail"
-                         src="./images/960x960.png"
-                         alt="Miniatura"
-                    >
-                    <span class="author__name">Jan Nowak</span>
-                </a>
-                <a class="list__item author author--list-item"
-                   href="./templates/author.html"
-                >
-                    <img class="author__thumbnail"
-                         src="./images/960x960.png"
-                         alt="Miniatura"
-                    >
-                    <span class="author__name">Jan Nowak</span>
-                </a>
-                <a class="list__item author author--list-item"
-                   href="./templates/author.html"
-                >
-                    <img class="author__thumbnail"
-                         src="./images/960x960.png"
-                         alt="Miniatura"
-                    >
-                    <span class="author__name">Jan Nowak</span>
-                </a>
-                <a class="list__item author author--list-item"
-                   href="./templates/author.html"
-                >
-                    <img class="author__thumbnail"
-                         src="./images/960x960.png"
-                         alt="Miniatura"
-                    >
-                    <span class="author__name">Jan Nowak</span>
-                </a>
-                <a class="list__item author author--list-item"
-                   href="./templates/author.html"
-                >
-                    <img class="author__thumbnail"
-                         src="./images/960x960.png"
-                         alt="Miniatura"
-                    >
-                    <span class="author__name">Jan Nowak</span>
-                </a>
-                <a class="list__item author author--list-item"
-                   href="./templates/author.html"
-                >
-                    <img class="author__thumbnail"
-                         src="./images/960x960.png"
-                         alt="Miniatura"
-                    >
-                    <span class="author__name">Jan Nowak</span>
-                </a>
+    <% if (authors && Array.isArray(authors) && authors.length > 0) { %>
+        <section class="section section--authors">
+            <div class="container">
+                <h1>
+                    Popularni autorzy
+                </h1>
+                <div class="list list--block">
+                    <% for (const author of authors){ %>
+                        <a class="list__item author author--list-item"
+                           href="/author/<%= author.id %>"
+                        >
+                            <img class="author__thumbnail"
+                                 src="/images/960x960.png"
+                                 alt="Miniatura"
+                            >
+                            <span class="author__name"><%= author.name %> <%= author.surname %></span>
+                        </a>
+                    <% } %>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <% } %>
 
 </main>
 

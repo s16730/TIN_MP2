@@ -3,6 +3,7 @@ import { getRepository } from "typeorm/index";
 import { Book } from "@entities/Book";
 import { BookService } from "@services/BookService";
 import { NotFoundException } from "@/exceptions/NotFoundException";
+import { AuthorService } from "@services/AuthorService";
 
 export class BookController {
   public static async getBookPage(req: Request, res: Response) {
@@ -26,9 +27,12 @@ export class BookController {
 
   public static async getBookViewPage(req: Request, res: Response) {
     const books = await BookService.instance.getBooks()
+    const authorService = AuthorService.instance;
+    const authors = await authorService.getAuthors()
 
     res.render("page/book/bookView", {
       books,
+      authors,
     })
   }
 
