@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { UserRole } from "./UserRole";
-import { OneToMany } from "typeorm/index";
+import { CreateDateColumn, OneToMany } from "typeorm/index";
 import { Shelf } from "./Shelf";
 
 @Entity()
@@ -37,6 +37,9 @@ export class User {
     }
   )
   shelves!: Shelf[];
+
+  @CreateDateColumn()
+  createdOn!: Date;
 
   constructor(email: string, username: string, roles: UserRole[] = []) {
     this.username = username;

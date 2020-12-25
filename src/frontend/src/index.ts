@@ -1,6 +1,8 @@
 import '@/scss/styles.scss';
 import { FormValidator } from "./script/FormValidator";
+import { Form } from "./script/Form";
 
 
-const formValidator = FormValidator.instance;
-
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('form').forEach(form => new Form(form))
+});

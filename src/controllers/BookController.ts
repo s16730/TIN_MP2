@@ -36,8 +36,78 @@ export class BookController {
     })
   }
 
-  public static getAddBookPage(req: Request, res: Response) {
-    res.render("page/book/addBook", {})
+  public static async getEditAddBookPage(req: Request, res: Response) {
 
+    const bookService = BookService.instance;
+    let data: Book | null = (await bookService.getBooks({ id: req.params.id }))[0];
+
+    if (!data) {
+      data = null;
+    }
+
+    res.render("page/book/bookEditorView", {
+      data,
+      message: req.body.message
+    })
+  }
+
+  static async addBook(req: Request, res: Response) {
+    const bookRepository = getRepository<Book>(Book);
+
+    const body = req.body;
+    const book = bookRepository.create();
+    const errors = BookService.validate(body);
+
+    if (0 === errors.length) {
+      const authorService = AuthorService.instance;
+
+      book.title = body.title;
+      book.isbn = body.isbn || "";
+      book.publicationDate = body.publicationDate;
+      book.description = body.description;
+      book.authors = await authorService.getAuthorsByFullName(body.authors.split(','));
+
+      await bookRepository.save(book);
+
+      res.end(JSON.stringify({
+        redirect: `/book/${book.id}`
+      }))
+    } else {
+      res.status(400)
+      res.end(JSON.stringify({
+        errors,
+      }))
+    }
+  }
+
+  static async updateBook(req: Request, res: Response) {
+    const bookRepository = getRepository<Book>(Book);
+    const bookService = BookService.instance;
+
+    const body = req.body;
+    const book = (await bookService.getBooks({ id: req.params.id }))[0];
+    if (book) {
+
+      const errors = BookService.validate(body);
+      if (0 === errors.length) {
+
+        const authorService = AuthorService.instance;
+
+        book.title = body.title;
+        book.isbn = body.isbn || "";
+        book.publicationDate = body.publicationDate;
+        book.description = body.description;
+        book.authors = await authorService.getAuthorsByFullName(body.authors.split(','));
+
+        await bookRepository.save(book);
+      } else {
+        res.status(400)
+        res.end(JSON.stringify({
+          errors,
+        }))
+      }
+    } else {
+      BookController.addBook(req, res);
+    }
   }
 }

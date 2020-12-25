@@ -22,7 +22,7 @@ export class UserService {
     this.userRepository = getRepository<User>(User)
   }
 
-  public getUsers(params: DataObject): Promise<User[]> {
+  public getUsers(params?: DataObject): Promise<User[]> {
     return this.userRepository.find(params)
   }
 }

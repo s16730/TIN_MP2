@@ -1,4 +1,5 @@
 export class FormValidator {
+  public static readonly EVENT = "VALIDATED";
   private static _instance: FormValidator;
 
   private _errors: HTMLElement[] = [];
@@ -15,12 +16,10 @@ export class FormValidator {
   constructor() {
     document.querySelectorAll<HTMLFormElement>('form').forEach(form => {
       form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
         this.validateAll();
 
-        if (form.querySelectorAll('.error').length > 0) {
-          evt.preventDefault();
-        }
-        evt.preventDefault();
+        form.dispatchEvent(new CustomEvent(FormValidator.EVENT, { detail: form.querySelectorAll('.error').length > 0 }))
       })
     })
   }

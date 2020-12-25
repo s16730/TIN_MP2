@@ -2,6 +2,7 @@ import { createQueryBuilder, getManager, getRepository, QueryBuilder, Repository
 import { Book } from "@entities/Book";
 import { DataObject } from "@/types";
 import { Author } from "@entities/Author";
+import { Validator } from "@/utils/Validator";
 
 export class BookService {
 
@@ -34,6 +35,18 @@ export class BookService {
     return await createQueryBuilder(Book, "book")
       .innerJoinAndSelect("book.authors", "author", "author.id IN(:authorIds)", { authorIds })
       .getMany();
+  }
+
+  static validate(requestBody: DataObject) {
+    const errors = [];
+
+    errors.push(
+      Validator.isFilled("title", requestBody.title),
+      Validator.isFilled(" publicationDate", requestBody.publicationDate),
+      Validator.isFilled("authors", requestBody.authors),
+      Validator.isDate("publicationDate", requestBody.publicationDate)
+    )
+    return errors.filter(error => error);
   }
 }
 

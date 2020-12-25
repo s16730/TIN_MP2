@@ -8,9 +8,6 @@ import { ShelfController } from "../controllers/ShelfController";
 const router = Router();
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
-router.get('/:id', (req, res, next) => {
-  ShelfController.getShelfPage(req, res)
-})
 
 router.get('/all', (req, res, next) => {
   ShelfController.getShelvesViewPage(req, res)
@@ -30,5 +27,9 @@ router.get('/add', ((req, res, next) => {
 router.get('/:id/edit', ((req, res, next) => {
   ShelfController.getAddShelfPage(req, res)
 }))
+
+router.get('/:id', (req, res, next) => {
+  ShelfController.getShelfPage(req, res)
+})
 
 export default router;

@@ -1,205 +1,47 @@
 <%- include(viewDir + "/common/header.ejs") %>
 
 <main>
-  <section class="section section--shelf">
-    <div class="container shelf shelf--full">
-      <div class="actions actions--shelf">
-        <a class="actions__action"
-           href="register.html"
-        >
-          Edytuj
-        </a>
-      </div>
+    <section class="section section--shelf">
+        <div class="container shelf shelf--full">
+            <div class="actions actions--shelf">
+                <a class="actions__action"
+                   href="register.html"
+                >
+                    Edytuj
+                </a>
+            </div>
 
-      <h1>
-        Przeczytane
-      </h1>
-      <span class="shelf__count">
-        11 pozycji
-      </span>
+            <h1>
+                <%= shelf.name %>
+            </h1>
+            <span class="shelf__count">
+                <%= shelf.books.length %> pozycji
+            </span>
 
-      <div class="list list--block">
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
+            <div class="list list--block">
+                <% for (const book of books) { %>
+                    <div class="list__item book book--list-item">
+                        <img class="book__thumbnail"
+                             src="/images/960x960.png"
+                             alt="Miniatura"
+                        >
+                        <a class="book__title"
+                           href="/book/<%= book.id %>"
+                        >
+                            <%= book.title %>
+                        </a>
+                        <% for (const author of book.authors) { %>
+                            <a class="book__author"
+                               href="/author/<%= author.id %>"
+                            >
+                                <%= author.name %> <%= author.surname %>
+                            </a>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
         </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum dolor
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum dolor sit amet
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum dolor
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum dolor sit amet
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </main>
 
 <%- include(viewDir + "/common/footer.ejs") %>

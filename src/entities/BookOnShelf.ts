@@ -22,7 +22,8 @@ export class BookOnShelf {
 
   @ManyToOne(
     type => Book,
-    book => book.id
+    book => book.id,
+    { eager: true, }
   )
   @JoinColumn({ name: "bookId" })
   book!: Book;

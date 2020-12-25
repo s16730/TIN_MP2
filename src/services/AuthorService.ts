@@ -32,5 +32,32 @@ export class AuthorService {
   getBooks(author: Author) {
     return this.bookService.getBooksByAuthors([author]);
   }
+
+  async getAuthorsByFullName(names: string[]) {
+    let result: Author[] = [];
+    const promises: Promise<void>[] = []
+
+    names.forEach((name) => {
+      let data = name.split(" ");
+
+      data = data.filter(entry => entry.length > 0)
+
+      promises.push(new Promise<void>(async resolve => {
+        const author = await this.authorRepository.find({
+          name: data[0],
+          surname: data[1],
+        })
+
+        result.push(author[0])
+        resolve();
+      }))
+    })
+
+    await Promise.all(promises);
+
+    result = result.filter(entry => entry);
+
+    return result;
+  }
 }
 

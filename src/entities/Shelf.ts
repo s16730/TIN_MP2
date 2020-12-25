@@ -23,7 +23,10 @@ export class Shelf {
 
 
   @OneToMany(type => BookOnShelf,
-    bookOnShelf => bookOnShelf.shelf
+    bookOnShelf => bookOnShelf.shelf,
+    {
+      eager: true,
+    }
   )
   books!: BookOnShelf[];
 

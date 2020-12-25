@@ -10,7 +10,7 @@ export class Book {
   id!: number;
 
   @Column()
-  title: string
+  title!: string
 
   @Column({
     type: "text"
@@ -24,7 +24,7 @@ export class Book {
   isbn: string = '';
 
   @Column()
-  publicationDate: Date;
+  publicationDate!: Date;
 
   @OneToMany(type => BookOnShelf,
     bookOnShelf => bookOnShelf.book)
@@ -38,11 +38,7 @@ export class Book {
     }
   )
   @JoinTable()
-  authors: Author[];
+  authors!: Author[];
 
-  constructor(title: string, publicationDate: Date, authors: Author[]) {
-    this.title = title;
-    this.publicationDate = publicationDate;
-    this.authors = authors;
-  }
+  constructor() {}
 }

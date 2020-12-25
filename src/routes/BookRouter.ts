@@ -8,10 +8,6 @@ const router = Router();
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
 
-router.get('/:id', (req, res, next) => {
-  BookController.getBookPage(req, res)
-});
-
 router.get('/all', (req, res, next) => {
   BookController.getBookViewPage(req, res)
 });
@@ -20,11 +16,24 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/add', (req, res, next) => {
-  BookController.getAddBookPage(req, res)
+  BookController.getEditAddBookPage(req, res)
+});
+router.post('/add', (req, res, next) => {
+  BookController.addBook(req, res)
 });
 
 router.get('/:id/edit', (req, res, next) => {
-  BookController.getAddBookPage(req, res)
+  BookController.getEditAddBookPage(req, res)
+});
+router.post('/:id/edit', (req, res, next) => {
+  BookController.updateBook(req, res)
+
+  BookController.getBookViewPage(req, res)
+});
+
+
+router.get('/:id', (req, res, next) => {
+  BookController.getBookPage(req, res)
 });
 
 export default router;
