@@ -1,8 +1,9 @@
 import { createQueryBuilder, getManager, getRepository, QueryBuilder, Repository } from "typeorm/index";
 import { Book } from "@entities/Book";
-import { DataObject } from "@/types";
+import { DataObject, ErrorObject } from "@/types";
 import { Author } from "@entities/Author";
 import { BookService } from "@services/BookService";
+import { Validator } from "@/utils/Validator";
 
 export class AuthorService {
 
@@ -58,6 +59,17 @@ export class AuthorService {
     result = result.filter(entry => entry);
 
     return result;
+  }
+
+  static validate(body: DataObject) {
+    const errors = [];
+
+    errors.push(
+      Validator.isFilled("name", body.name),
+      Validator.isFilled("surname", body.surname),
+    )
+
+    return errors.filter(e => e);
   }
 }
 

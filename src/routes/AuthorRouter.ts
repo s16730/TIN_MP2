@@ -1,7 +1,7 @@
 import StatusCodes from 'http-status-codes';
 import { Request, Response, Router } from 'express';
 import { paramMissingError, IRequest } from '@shared/constants';
-import { AuthorController } from "../controllers/AuthorController";
+import { AuthorController } from "@/controllers/AuthorController";
 
 
 const router = Router();
@@ -10,11 +10,17 @@ const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
 
 router.get('/add', (req, res, next) => {
-  AuthorController.getAddAuthorPage(req, res)
+  AuthorController.getEditAuthorPage(req, res)
+})
+router.post('/add', (req, res, next) => {
+  AuthorController.addAuthor(req, res)
 })
 
 router.get('/:id/edit', (req, res, next) => {
-  AuthorController.getAddAuthorPage(req, res)
+  AuthorController.getEditAuthorPage(req, res)
+})
+router.post('/:id/edit', (req, res, next) => {
+  AuthorController.updateAuthor(req, res)
 })
 
 router.get('/all', (req, res, next) => {

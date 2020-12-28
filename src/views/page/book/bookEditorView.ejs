@@ -8,7 +8,7 @@
         <% } %>
         <form class="form form--book"
         <% if (data) { %>
-              data-url="/book/<% data.id %>/edit"
+              data-url="/book/<%= data.id %>/edit"
         <% } else { %>
               data-url="/book/add"
                 <% } %>

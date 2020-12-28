@@ -100,14 +100,13 @@ export class BookController {
         book.authors = await authorService.getAuthorsByFullName(body.authors.split(','));
 
         await bookRepository.save(book);
+        res.end(JSON.stringify({message: "Zapisano"}))
       } else {
         res.status(400)
-        res.end(JSON.stringify({
-          errors,
-        }))
+        res.end(JSON.stringify({ errors }))
       }
     } else {
-      BookController.addBook(req, res);
+      this.addBook(req, res);
     }
   }
 }

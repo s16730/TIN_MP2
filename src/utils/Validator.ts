@@ -16,7 +16,7 @@ export class Validator {
 
   public static isFilled(field: string, value: string): ErrorObject | null {
 
-    if (0 === value.length) {
+    if (!value || 0 === value.length) {
       return {
         name: field,
         message: "Pole jest wymagane",
@@ -44,6 +44,17 @@ export class Validator {
       return {
         name: field,
         message: "Pole musi zawierać datę",
+      }
+    }
+
+    return null;
+  }
+
+  static isSame(field: string, fieldValue: string, comparedValue: string): ErrorObject | null {
+    if (fieldValue !== comparedValue) {
+      return {
+        name: field,
+        message: "Wartości pól nie są takie same",
       }
     }
 
