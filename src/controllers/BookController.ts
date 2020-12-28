@@ -81,7 +81,6 @@ export class BookController {
   }
 
   static async updateBook(req: Request, res: Response) {
-    const bookRepository = getRepository<Book>(Book);
     const bookService = BookService.instance;
 
     const body = req.body;
@@ -90,7 +89,7 @@ export class BookController {
 
       const errors = BookService.validate(body);
       if (0 === errors.length) {
-
+        const bookRepository = getRepository<Book>(Book);
         const authorService = AuthorService.instance;
 
         book.title = body.title;
@@ -100,7 +99,7 @@ export class BookController {
         book.authors = await authorService.getAuthorsByFullName(body.authors.split(','));
 
         await bookRepository.save(book);
-        res.end(JSON.stringify({message: "Zapisano"}))
+        res.end(JSON.stringify({ message: "Zapisano" }))
       } else {
         res.status(400)
         res.end(JSON.stringify({ errors }))

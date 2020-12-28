@@ -25,5 +25,9 @@ export class UserService {
   public getUsers(params?: DataObject): Promise<User[]> {
     return this.userRepository.find(params)
   }
+
+  static currentUser() {
+    return null;
+  }
 }
 

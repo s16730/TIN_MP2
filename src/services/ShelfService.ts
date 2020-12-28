@@ -6,6 +6,7 @@ import { User } from "@entities/User";
 import { Shelf } from "@entities/Shelf";
 import { BookOnShelf } from "@entities/BookOnShelf";
 import { BookData } from "@entities/DataEntities/BookData";
+import { Validator } from "@/utils/Validator";
 
 export class ShelfService {
 
@@ -41,6 +42,16 @@ export class ShelfService {
     }
 
     return result;
+  }
+
+  static validate(body: DataObject) {
+    const errors = [];
+
+    errors.push(
+      Validator.isFilled("name", body.name)
+    )
+
+    return errors.filter(e => e);
   }
 }
 

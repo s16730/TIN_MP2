@@ -21,11 +21,18 @@ router.post('/:shelfId/add-book/:bookId', ((req, res, next) => {
 }))
 
 router.get('/add', ((req, res, next) => {
-  ShelfController.getAddShelfPage(req, res)
+  ShelfController.getEditShelfPage(req, res)
+}))
+router.post('/add', ((req, res, next) => {
+  ShelfController.addShelf(req, res)
 }))
 
 router.get('/:id/edit', ((req, res, next) => {
-  ShelfController.getAddShelfPage(req, res)
+  ShelfController.getEditShelfPage(req, res)
+}))
+
+router.post('/:id/edit', ((req, res, next) => {
+  ShelfController.updateShelf(req, res)
 }))
 
 router.get('/:id', (req, res, next) => {
