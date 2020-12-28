@@ -27,6 +27,11 @@ import { Random } from "./utils/Random";
 import { UserRole } from "@entities/UserRole";
 import { BookOnShelf } from "@entities/BookOnShelf";
 
+import passport from "passport";
+import flash from 'connect-flash';
+import session from 'express-session';
+import passportSetup from "@/config/passport";
+
 logger.info("Starting application...")
 
 // <editor-fold desc="Express setup">
@@ -38,6 +43,16 @@ const { BAD_REQUEST } = StatusCodes;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET!
+}))
+
+passportSetup(passport)
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -140,7 +155,6 @@ dbService.createConnection().then(() => {
       });
 
       bookList = await bookRepository.save(bookList);
-
 
 
       const userRepository = getRepository<User>(User);

@@ -2,6 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { UserRole } from "./UserRole";
 import { CreateDateColumn, OneToMany } from "typeorm/index";
 import { Shelf } from "./Shelf";
+import bcrypt from 'bcrypt';
+import logger from "@shared/Logger";
+
 
 @Entity()
 export class User {
@@ -29,6 +32,11 @@ export class User {
   })
   roles: UserRole[] = [];
 
+  @Column({
+    type: "text",
+  })
+  password!: string;
+
   @OneToMany(
     type => Shelf,
     shelf => shelf.owner,
@@ -45,5 +53,19 @@ export class User {
     this.username = username;
     this.email = email;
     this.roles = roles;
+  }
+
+  isPasswordValid(password: string) {
+    return bcrypt.compareSync(password, this.password);
+  }
+
+  async setPassword(password: string) {
+    return new Promise<void>(resolve => {
+      bcrypt.hash(password, 10, (err, hash) => {
+        this.password = hash;
+
+        resolve()
+      })
+    })
   }
 }

@@ -60,4 +60,19 @@ export class Validator {
 
     return null;
   }
+
+  static isPasswordComplexEnough(field: string, value: string) {
+    const hasNumber = /\d+/;
+    const hasUppercaseLetter = /[a-z]+/;
+    const hasLowercaseLetter = /[A-Z]+/;
+
+    if (value.length < 8 || !hasNumber.test(value) || !hasLowercaseLetter.test(value) || !hasUppercaseLetter.test(value)) {
+      return {
+        name: field,
+        message: "Hasło musi mieć co najmniej 8 znaków oraz zawierać co najmniej jedną dużą i małą literę oraz co najmniej jedną cyfrę",
+      }
+    }
+
+    return null;
+  }
 }

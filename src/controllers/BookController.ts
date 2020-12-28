@@ -18,8 +18,6 @@ export class BookController {
         book,
         authorSimilar,
       })
-
-      console.log(book)
     } else {
       throw new NotFoundException()
     }

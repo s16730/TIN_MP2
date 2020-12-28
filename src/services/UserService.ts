@@ -3,6 +3,7 @@ import { Book } from "@entities/Book";
 import { DataObject } from "@/types";
 import { Author } from "@entities/Author";
 import { User } from "@entities/User";
+import { Validator } from "@/utils/Validator";
 
 export class UserService {
 
@@ -28,6 +29,29 @@ export class UserService {
 
   static currentUser() {
     return null;
+  }
+
+  async userExists(username: string, email: string) {
+    const usernameUsers = await this.userRepository.find({ username })
+    const emailUsers = await this.userRepository.find({ email })
+
+    return usernameUsers.length !== 0 || emailUsers.length !== 0;
+  }
+
+  static validate(body: DataObject) {
+    const errors = [];
+
+    errors.push(
+      Validator.isFilled("username", body.username),
+      Validator.isFilled("password", body.password),
+      Validator.isFilled("repeatPassword", body.repeatPassword),
+      Validator.isFilled("email", body.email),
+      Validator.isEmail("email", body.email),
+      Validator.isSame("repeatPassword", body.repeatPassword, body.password),
+      Validator.isPasswordComplexEnough('password', body.password)
+    );
+
+    return errors.filter(e => e);
   }
 }
 
