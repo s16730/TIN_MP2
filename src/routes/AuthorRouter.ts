@@ -2,25 +2,53 @@ import StatusCodes from 'http-status-codes';
 import { Request, Response, Router } from 'express';
 import { paramMissingError, IRequest } from '@shared/constants';
 import { AuthorController } from "@/controllers/AuthorController";
+import { UserService } from "@services/UserService";
+import { ArrayHelper } from "@/utils/ArrayHelper";
+import { UserRole } from "@entities/UserRole";
+import { BookController } from "@/controllers/BookController";
+import { ForbiddenException } from "@/exceptions/ForbiddenException";
 
 
 const router = Router();
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
 
+router.get('/add', async (req, res, next) => {
+  const user = await UserService.currentUser(req);
 
-router.get('/add', (req, res, next) => {
-  AuthorController.getEditAuthorPage(req, res)
+  if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
+    AuthorController.getEditAuthorPage(req, res)
+  } else {
+    throw new ForbiddenException();
+  }
 })
-router.post('/add', (req, res, next) => {
-  AuthorController.addAuthor(req, res)
+router.post('/add', async (req, res, next) => {
+  const user = await UserService.currentUser(req);
+
+  if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
+    AuthorController.addAuthor(req, res)
+  } else {
+    throw new ForbiddenException();
+  }
 })
 
-router.get('/:id/edit', (req, res, next) => {
-  AuthorController.getEditAuthorPage(req, res)
+router.get('/:id/edit', async (req, res, next) => {
+  const user = await UserService.currentUser(req);
+
+  if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
+    AuthorController.getEditAuthorPage(req, res)
+  } else {
+    throw new ForbiddenException();
+  }
 })
-router.post('/:id/edit', (req, res, next) => {
-  AuthorController.updateAuthor(req, res)
+router.post('/:id/edit', async (req, res, next) => {
+  const user = await UserService.currentUser(req);
+
+  if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
+    AuthorController.updateAuthor(req, res)
+  } else {
+    throw new ForbiddenException();
+  }
 })
 
 router.get('/all', (req, res, next) => {

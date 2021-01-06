@@ -4,6 +4,7 @@ import { User } from "@entities/User";
 import { ShelfService } from "@services/ShelfService";
 import { getRepository } from "typeorm/index";
 import { UserRole } from "@entities/UserRole";
+import { NotFoundException } from "@/exceptions/NotFoundException";
 
 export class UserController {
   public static getLoginPage(req: Request, res: Response) {
@@ -19,13 +20,18 @@ export class UserController {
     const users = await userService.getUsers({ id: req.params.id })
     const user: User = users[0];
 
-    const shelfService = ShelfService.instance;
-    const shelves = await shelfService.getShelf({ owner: user })
+    if (!user) {
 
-    res.render("page/user/user", {
-      user,
-      shelves,
-    })
+      const shelfService = ShelfService.instance;
+      const shelves = await shelfService.getShelf({ owner: user })
+
+      res.render("page/user/user", {
+        user,
+        shelves,
+      })
+    } else {
+      throw new NotFoundException()
+    }
   }
 
   public static async getCurrentUserPage(req: Request, res: Response) {

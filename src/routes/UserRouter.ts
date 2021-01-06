@@ -5,6 +5,11 @@ import { BookController } from "../controllers/BookController";
 import { ShelfController } from "../controllers/ShelfController";
 import { UserController } from "../controllers/UserController";
 import passport from "passport";
+import { UserService } from "@services/UserService";
+import { User } from "@entities/User";
+import { ArrayHelper } from "@/utils/ArrayHelper";
+import { UserRole } from "@entities/UserRole";
+import { ForbiddenException } from "@/exceptions/ForbiddenException";
 
 
 const router = Router();
@@ -46,7 +51,15 @@ router.get('/logout', (req, res, next) => {
   UserController.logout();
 })
 
-router.get('/:id/edit', (req, res, next) => {
+router.get('/:id/edit', async (req, res, next) => {
+  const user = await UserService.currentUser(req);
+
+  if (user && user.id.toString() === req.params.id) {
+    UserController.getUserViewPage(req, res)
+  } else {
+    throw new ForbiddenException();
+  }
+
   UserController.getEditPage(req, res)
 })
 

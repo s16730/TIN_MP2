@@ -1,5 +1,6 @@
 import { createQueryBuilder, getManager, getRepository, QueryBuilder, Repository } from "typeorm/index";
 import { Book } from "@entities/Book";
+import { NextFunction, Request, Response } from "express";
 import { DataObject } from "@/types";
 import { Author } from "@entities/Author";
 import { User } from "@entities/User";
@@ -27,9 +28,6 @@ export class UserService {
     return this.userRepository.find(params)
   }
 
-  static currentUser() {
-    return null;
-  }
 
   async userExists(username: string, email: string) {
     const usernameUsers = await this.userRepository.find({ username })
@@ -52,6 +50,13 @@ export class UserService {
     );
 
     return errors.filter(e => e);
+  }
+
+  static async currentUser(req: Request): Promise<User | null> {
+    const users = await this.instance.getUsers({ id: (req.user as any).id })
+    const user: User = users[0];
+
+    return user ? user : null;
   }
 }
 
