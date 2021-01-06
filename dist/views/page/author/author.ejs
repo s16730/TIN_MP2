@@ -1,72 +1,59 @@
 <%- include(viewDir + "/common/header.ejs") %>
+
 <main>
-  <section class="section section--author">
-    <div class="container author author--full">
-      <div class="author__photo">
-        <img src="/images/960x960.png"
-             alt="Zdjęcie autora"
-        >
-      </div>
-      <div class="author__info">
-        <h1 class="author__info__name">
-          Jan Nowak
-        </h1>
-      </div>
-      <div class="author__description">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel molestie massa. Nam eget vestibulum nibh. Aenean tincidunt sapien metus, ut volutpat orci dictum eget. Curabitur non turpis arcu. Aenean gravida, ex vitae molestie pulvinar, metus eros tincidunt tellus, tristique malesuada turpis magna in augue. Phasellus faucibus ornare cursus. Aenean et consectetur purus. Donec mattis bibendum bibendum. Integer tristique felis sit amet elit scelerisque, id elementum sapien rutrum.
-        </p>
-        <p>
-          Nullam libero libero, tincidunt mollis eros ut, aliquet pellentesque elit. Donec pharetra ultricies semper. Sed a pulvinar massa, a pharetra risus. Nunc sed auctor enim. Donec quis turpis vitae neque iaculis pretium. Etiam efficitur congue turpis sed cursus. Nulla ante diam, sollicitudin nec feugiat vitae, tristique et tortor. Donec pharetra tortor ut nisl sollicitudin convallis. Sed lobortis dolor ut diam faucibus, et laoreet massa fringilla. Proin laoreet egestas sapien vitae cursus. Mauris aliquet nisl augue, non aliquet elit placerat eget. Morbi sed urna dui. Ut vulputate accumsan dui, id faucibus elit blandit ut. Curabitur sagittis dui vel libero aliquet, id varius lacus sollicitudin.
-        </p>
-        <p>
-          Morbi vulputate augue vel cursus dignissim. Sed nec mauris nec ligula gravida tempor. Nunc quis odio quis lectus auctor porta vel eget nulla. Phasellus et vestibulum erat. Vestibulum consequat elit nec ex iaculis porta. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Sed a nibh eros. Pellentesque vulputate in velit at faucibus. Quisque laoreet, urna id volutpat faucibus, nisl dolor pellentesque dolor, eget pharetra nisl massa in ipsum. Integer non vulputate turpis, a efficitur est. Nunc nibh ligula, bibendum ac consectetur non, vestibulum eget tortor.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--other-books">
-    <div class="container">
-      <h2>
-        Inne książki tego autora
-      </h2>
-      <div class="list list--block">
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
+    <section class="section section--author">
+        <div class="container author author--full">
+            <div class="author__photo">
+                <img src="/images/960x960.png"
+                     alt="Zdjęcie autora"
+                >
+            </div>
+            <div class="author__info">
+                <h1 class="author__info__name">
+                    <%= author.name %> <%= author.surname %>
+                </h1>
+            </div>
+            <div class="author__description">
+                <p>
+                    <%= author.bio %>
+                </p>
+            </div>
         </div>
-        <div class="list__item book book--list-item">
-          <img class="book__thumbnail"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
+    </section>
 
-          <a class="book__title"
-             href="book.html"
-          >
-            Lorem ipsum dolor
-          </a>
-          <a class="book__author"
-             href="author.html"
-          >
-            Jan Nowak
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+    <% if (books.length > 0) { %>
+        <section class="section section--other-books">
+            <div class="container">
+                <h2>
+                    Inne książki tego autora
+                </h2>
+                <div class="list list--block">
+                    <% for(const book of books){ %>
+                        <div class="list__item book book--list-item">
+                            <img class="book__thumbnail"
+                                 src="/images/960x960.png"
+                                 alt="Miniatura"
+                            >
+                            <a class="book__title"
+                               href="/book/<%= book.id %>"
+                            >
+                                <%= book.title %>
+                            </a>
+                            <% if (book.authors && Array.isArray(book.authors)) { %>
+
+                                <% for (const author of book.authors) { %>
+                                    <a class="book__author"
+                                       href="/author/<%= author.id %>"
+                                    >
+                                        <%= author.name %> <%= author.surname %>
+                                    </a>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </section>
+    <% } %>
 </main>
 <%- include(viewDir + "/common/footer.ejs") %>

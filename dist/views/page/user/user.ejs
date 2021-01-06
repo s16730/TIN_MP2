@@ -1,108 +1,80 @@
 <%- include(viewDir + "/common/header.ejs") %>
 
 <main>
-  <section class="section section--user  section--background-light">
-    <h1 class="visually-hidden">Szczegóły użytkownika</h1>
-    <div class="container user user--full">
-      <div class="actions actions--user">
-        <a class="actions__action"
-           href="register.html"
-        >
-          Edytuj
-        </a>
-        <a class="actions__action">
-          Zmień hasło
-        </a>
-      </div>
-      <div class="user__avatar">
-        <img src="../images/person.png"
-             alt="User avatar"
-        >
-      </div>
-      <div class="user__info">
-        <div class="user__info__username">
-          <span>Nazwa użytkownika:</span>
-          <span>Lorem ipsum</span>
-        </div>
-        <div class="user__info__email">
+    <section class="section section--user  section--background-light">
+        <h1 class="visually-hidden">
+            Szczegóły użytkownika
+        </h1>
+        <div class="container user user--full">
+            <div class="actions actions--user">
+                <a class="actions__action"
+                   href="/user/<%= user.id %>/edit"
+                >
+                    Edytuj
+                </a>
+                <a class="actions__action">
+                    Zmień hasło
+                </a>
+            </div>
+            <div class="user__avatar">
+                <img src="../images/person.png"
+                     alt="User avatar"
+                >
+            </div>
+            <div class="user__info">
+                <div class="user__info__username">
+                    <span>
+                        Nazwa użytkownika:
+                    </span>
+                    <span>
+                        <%= user.username %>
+                    </span>
+                </div>
+                <div class="user__info__email">
           <span>
             E-mail:
           </span>
-          <span>
-            example@example.com
-          </span>
-        </div>
-        <div class="user__info__creation-date">
+                    <span>
+                        <%= user.email %>
+                    </span>
+                </div>
+                <div class="user__info__creation-date">
           <span>
             Data utworzenia:
           </span>
-          <span>
-            01.06.2016
-          </span>
+                    <span>
+                        <%= user.createdOn %>
+                    </span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section--shelves">
-    <div class="container">
-      <h1>
-        Półki
-      </h1>
-      <div class="list list--list">
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">S-F</span>
-          <span class="shelf__count">13 pozycji</span>
-        </a>
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">Kryminał</span>
-          <span class="shelf__count">65 pozycji</span>
-        </a>
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">Fantasy</span>
-          <span class="shelf__count">26 pozycji</span>
-        </a>
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">Do przeczytania</span>
-          <span class="shelf__count">235 pozycji</span>
-        </a>
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">Przeczytane</span>
-          <span class="shelf__count">65 pozycji</span>
-        </a>
-      </div>
-    </div>
-  </section>
+    <section class="section section--shelves">
+        <div class="container">
+            <h1>
+                Półki
+            </h1>
+            <div class="list list--list">
+                <% for (const shelf of shelves) { %>
+                    <a class="list__item shelf shelf--list-item"
+                       href="/shelf/<%= shelf.id %>"
+                    >
+                        <img class="shelf__icon"
+                             src="/images/960x960.png"
+                             alt="Miniatura"
+                        >
+                        <span class="shelf__name">
+                            <%= shelf.name %>
+                        </span>
+                        <span class="shelf__count">
+                            <%= shelf.books.length %> pozycji
+                        </span>
+                    </a>
+                <% } %>
+            </div>
+        </div>
+    </section>
 </main>
 
 <%- include(viewDir + "/common/footer.ejs") %>

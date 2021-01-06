@@ -2,7 +2,7 @@
   "name": "MP2",
   "version": "0.0.0",
   "scripts": {
-    "build": "ts-node build.ts && tsc --build tsconfig.prod.json",
+    "build": "ts-node build.ts && tsc --build tsconfig.json",
     "lint": "eslint . --ext .ts",
     "start": "node -r module-alias/register ./dist --env=production",
     "start:dev": "nodemon",
@@ -23,7 +23,10 @@
     "@daos": "dist/daos",
     "@entities": "dist/entities",
     "@shared": "dist/shared",
-    "@server": "dist/Server"
+    "@server": "dist/Server",
+    "@utils": "dist/utils",
+    "@": "dist/",
+    "@services": "dist/services"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",

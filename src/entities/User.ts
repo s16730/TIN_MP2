@@ -35,7 +35,7 @@ export class User {
   @Column({
     type: "text",
   })
-  password!: string;
+  password: string = '';
 
   @OneToMany(
     type => Shelf,

@@ -1,65 +1,31 @@
 <%- include(viewDir + "/common/header.ejs") %>
 
 <main>
-  <section class="section section--shelves">
-    <div class="container">
-      <h1>
-        Półki
-      </h1>
-      <div class="list list--list">
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">S-F</span>
-          <span class="shelf__count">13 pozycji</span>
-        </a>
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">Kryminał</span>
-          <span class="shelf__count">65 pozycji</span>
-        </a>
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">Fantasy</span>
-          <span class="shelf__count">26 pozycji</span>
-        </a>
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">Do przeczytania</span>
-          <span class="shelf__count">235 pozycji</span>
-        </a>
-        <a class="list__item shelf shelf--list-item"
-           href="./shelf.html"
-        >
-          <img class="shelf__icon"
-               src="/images/960x960.png"
-               alt="Miniatura"
-          >
-          <span class="shelf__name">Przeczytane</span>
-          <span class="shelf__count">65 pozycji</span>
-        </a>
-      </div>
-    </div>
-  </section>
+    <section class="section section--shelves">
+        <div class="container">
+            <h1>
+                Półki
+            </h1>
+            <div class="list list--list">
+                <% for (const shelf of shelves){ %>
+                    <a class="list__item shelf shelf--list-item"
+                       href="/shelf/<%= shelf.id %>"
+                    >
+                        <img class="shelf__icon"
+                             src="/images/960x960.png"
+                             alt="Miniatura"
+                        >
+                        <span class="shelf__name">
+                            <%= shelf.name %>
+                        </span>
+                        <span class="shelf__count">
+                            <%= shelf.books.length %> pozycji
+                        </span>
+                    </a>
+                <% } %>
+            </div>
+        </div>
+    </section>
 </main>
 
 <%- include(viewDir + "/common/footer.ejs") %>

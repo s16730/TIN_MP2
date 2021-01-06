@@ -1,59 +1,65 @@
 <%- include(viewDir + "/common/header.ejs") %>
 
 <main>
-  <section class="container section section--register">
-    <form class="form form--register" action="user.html">
-      <h1 class="form__header">
-        Zarejestruj się
-      </h1>
-      <div class="field field--text">
-        <label class="field__label">
-          <span class="field__label__text visually-hidden">E-mail</span>
-          <input class="field__label__input"
-                 placeholder="E-mail"
-                 name="email"
-                 type="text"
-          >
-        </label>
-      </div>
-      <div class="field field--text">
-        <label class="field__label">
-          <span class="field__label__text visually-hidden">Nazwa użytkownika</span>
-          <input class="field__label__input"
-                 placeholder="Nazwa użytkownika"
-                 name="username"
-                 type="text"
-          >
-        </label>
-      </div>
-      <div class="field field--password">
-        <label class="field__label">
-          <span class="field__label__text visually-hidden">Hasło</span>
-          <input class="field__label__input"
-                 placeholder="Hasło"
-                 name="password"
-                 type="password"
-          >
-        </label>
-      </div>
-      <div class="field field--password">
-        <label class="field__label">
-          <span class="field__label__text visually-hidden">Powtórz hasło</span>
-          <input class="field__label__input"
-                 placeholder="Powtórz hasło"
-                 name="repeatPassword"
-                 type="password"
-          >
-        </label>
-      </div>
-      <div class="field field--submit">
-        <input class="field__input button"
-               type="submit"
-               value="Zarejestruj się"
+    <section class="container section section--register">
+        <form class="form form--register"
+              data-url="/user/register"
         >
-      </div>
-    </form>
-  </section>
+            <h1 class="form__header">
+                Zarejestruj się
+            </h1>
+            <div class="field field--text">
+                <label class="field__label">
+                    <span class="field__label__text visually-hidden">E-mail</span>
+                    <input class="field__label__input"
+                           placeholder="E-mail"
+                           data-validate="required length email"
+                           name="email"
+                           type="text"
+                    >
+                </label>
+            </div>
+            <div class="field field--text">
+                <label class="field__label">
+                    <span class="field__label__text visually-hidden">Nazwa użytkownika</span>
+                    <input class="field__label__input"
+                           placeholder="Nazwa użytkownika"
+                           data-validate="required length"
+                           name="username"
+                           type="text"
+                    >
+                </label>
+            </div>
+            <div class="field field--password">
+                <label class="field__label">
+                    <span class="field__label__text visually-hidden">Hasło</span>
+                    <input class="field__label__input"
+                           placeholder="Hasło"
+                           data-validate="required"
+                           name="password"
+                           type="password"
+                    >
+                </label>
+            </div>
+            <div class="field field--password">
+                <label class="field__label">
+                    <span class="field__label__text visually-hidden">Powtórz hasło</span>
+                    <input class="field__label__input"
+                           placeholder="Powtórz hasło"
+                           name="repeatPassword"
+                           data-validate="required equals=password"
+                           type="password"
+                    >
+                </label>
+            </div>
+            <div class="field field--submit">
+                <input class="field__input button"
+                       type="submit"
+                       value="Zarejestruj się"
+                >
+            </div>
+        </form>
+    </section>
 </main>
 
 <%- include(viewDir + "/common/footer.ejs") %>

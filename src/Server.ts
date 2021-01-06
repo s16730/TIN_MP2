@@ -11,7 +11,7 @@ import logger from '@shared/Logger';
 import { BookController } from "./controllers/BookController";
 import router from "./routes/index";
 import { createConnection } from "net";
-import { DbService } from "./services/DbService";
+import { DbService } from "@services/DbService";
 import { getConnection, getRepository } from "typeorm/index";
 import { Book } from "@entities/Book";
 import { Author } from "@entities/Author";
@@ -45,7 +45,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(session({
-  secret: process.env.SESSION_SECRET!
+  secret: process.env.SESSION_SECRET!,
 }))
 
 passportSetup(passport)

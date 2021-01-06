@@ -9,50 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class UserDao {
-    /**
-     * @param email
-     */
-    getOne(email) {
-        // TODO
-        return Promise.resolve(null);
+exports.DbService = void 0;
+const index_1 = require("typeorm/index");
+class DbService {
+    constructor() {
     }
-    /**
-     *
-     */
-    getAll() {
-        // TODO
-        return Promise.resolve([]);
+    get connection() {
+        return this._connection;
     }
-    /**
-     *
-     * @param user
-     */
-    add(user) {
+    createConnection() {
         return __awaiter(this, void 0, void 0, function* () {
-            // TODO
-            return Promise.resolve(undefined);
-        });
-    }
-    /**
-     *
-     * @param user
-     */
-    update(user) {
-        return __awaiter(this, void 0, void 0, function* () {
-            // TODO
-            return Promise.resolve(undefined);
-        });
-    }
-    /**
-     *
-     * @param id
-     */
-    delete(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            // TODO
-            return Promise.resolve(undefined);
+            if (!this._connection) {
+                this._connection = yield index_1.createConnection();
+            }
+            else {
+                console.log('Connection already exists!');
+            }
         });
     }
 }
-exports.default = UserDao;
+exports.DbService = DbService;

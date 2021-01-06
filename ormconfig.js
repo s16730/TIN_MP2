@@ -1,4 +1,6 @@
-{
+const path = require('path')
+
+module.exports = {
   "type": "mysql",
   "host": "localhost",
   "port": 3306,
@@ -7,13 +9,19 @@
   "database": "TIN",
   "synchronize": true,
   "logging": false,
-  "entities": [
+  "entities": isProd() ? [
+    "dist/entities/**/*.js"
+  ] : [
     "src/entities/**/*.ts"
   ],
-  "migrations": [
+  "migrations": isProd() ? [
+    "dist/migrations/**/*.js"
+  ] : [
     "src/migrations/**/*.ts"
   ],
-  "subscribers": [
+  "subscribers": isProd() ? [
+    "dist/subscribers/**/*.js"
+  ] : [
     "src/subscribers/**/*.ts"
   ],
   "cli": {
@@ -21,4 +29,8 @@
     "migrationsDir": "src/migrations",
     "subscribersDir": "src/subscribers"
   }
+}
+
+function isProd() {
+  return process.env.NODE_ENV === 'production';
 }

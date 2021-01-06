@@ -1,0 +1,29 @@
+<%- include(viewDir + "/common/header.ejs") %>
+
+
+<main>
+    <section class="section section--authors">
+        <div class="container">
+            <h1>
+                Autorzy
+            </h1>
+            <div class="list list--block">
+                <% for (const author of authors){ %>
+                <a class="list__item author author--list-item"
+                   href="/author/<%= author.id %>"
+                >
+                    <img class="author__thumbnail"
+                         src="/images/960x960.png"
+                         alt="Miniatura"
+                    >
+                    <span class="author__name"><%= author.name %> <%= author.surname %></span>
+                </a>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<%- include(viewDir + "/common/footer.ejs") %>
+
