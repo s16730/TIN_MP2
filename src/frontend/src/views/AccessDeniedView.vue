@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    {{ $t("403 Access denied") }}
+  </div>
 </template>
 
 <script lang="ts">

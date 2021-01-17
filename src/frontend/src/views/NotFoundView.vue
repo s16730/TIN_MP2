@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    {{ $t("404 Not found") }}
+  </div>
 </template>
 
 <script lang="ts">
