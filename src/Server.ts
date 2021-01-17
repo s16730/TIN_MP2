@@ -8,9 +8,6 @@ import 'express-async-errors';
 import BaseRouter from './routes/index'
 
 import logger from '@shared/Logger';
-import { BookController } from "./controllers/BookController";
-import router from "./routes/index";
-import { createConnection } from "net";
 import { DbService } from "@services/DbService";
 import { getConnection, getRepository } from "typeorm/index";
 import { Book } from "@entities/Book";
@@ -65,6 +62,9 @@ if (process.env.NODE_ENV === 'production') {
 
 const appDir = path.dirname(require.main!.filename)
 const viewDir = appDir + '/views'
+export const vueDir = appDir + '/views/dist'
+app.use(express.static(vueDir));
+
 app.use((req, res, next) => {
   res.locals.appDir = appDir;
   res.locals.viewDir = viewDir;

@@ -1,33 +1,51 @@
 {
-  "name": "MP1",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "name": "front",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "clean": "rm dist/bundle.js",
-    "build": "webpack -d --mode production",
-    "build:dev": "webpack -p --mode development",
-    "watch": "webpack --watch --mode development"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build && rm -R ../views/dist && mv ./dist ../views",
+    "lint": "vue-cli-service lint"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0"
+  },
   "devDependencies": {
-    "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^6.1.0",
-    "css-loader": "^4.3.0",
-    "file-loader": "^6.1.0",
-    "html-webpack-plugin": "^4.4.1",
-    "mini-css-extract-plugin": "^0.11.2",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^10.0.2",
-    "style-loader": "^1.2.1",
-    "ts-loader": "^8.0.3",
-    "typescript": "^4.0.2",
-    "url-loader": "^4.1.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
-  }
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.2",
+    "typescript": "~3.9.3",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended",
+      "@vue/typescript/recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

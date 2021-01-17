@@ -1,4 +1,4 @@
-import { DataObject, ErrorObject } from "../../../types";
+import { DataObject, ErrorObject } from "../../../../types";
 import { FormValidator } from "./FormValidator";
 
 export class Form {
