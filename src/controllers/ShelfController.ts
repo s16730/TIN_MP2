@@ -4,13 +4,10 @@ import { getRepository } from "typeorm/index";
 import { Shelf } from "@entities/Shelf";
 import { UserService } from "@services/UserService";
 import { NotFoundException } from "@/exceptions/NotFoundException";
-import { ArrayHelper } from "@/utils/ArrayHelper";
-import { UserRole } from "@entities/UserRole";
-import { UserController } from "@/controllers/UserController";
 import { ForbiddenException } from "@/exceptions/ForbiddenException";
 
 export class ShelfController {
-  public static async getShelfPage(req: Request, res: Response) {
+  public static async getShelf(req: Request, res: Response) {
     const user = await UserService.currentUser(req);
 
     if (user) {
@@ -23,10 +20,10 @@ export class ShelfController {
       if (shelf) {
         const books = await shelfService.getBooksDataByShelf(shelf);
 
-        res.render("page/shelf/shelf", {
+        res.end(JSON.stringify({
           shelf,
           books,
-        })
+        }))
       } else {
         throw new NotFoundException()
       }
@@ -35,7 +32,7 @@ export class ShelfController {
     }
   }
 
-  public static async getShelvesViewPage(req: Request, res: Response) {
+  public static async getShelves(req: Request, res: Response) {
     const user = await UserService.currentUser(req);
 
     if (user) {
@@ -44,14 +41,12 @@ export class ShelfController {
         owner: user.id,
       });
 
-      res.render("page/shelf/shelves", {
+      res.end(JSON.stringify({
         shelves,
-      })
+      }));
     } else {
       throw new NotFoundException();
     }
-
-
   }
 
   public static async getEditShelfPage(req: Request, res: Response) {

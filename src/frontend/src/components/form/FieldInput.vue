@@ -9,8 +9,9 @@
              :name="fieldName"
              :type="type"
              :value="defaultValue"
+             v-model="model"
+             @input="$emit('input', model)"
       >
-      <!--             :data-validate="required length"-->
     </label>
   </div>
 </template>
@@ -28,6 +29,15 @@ export default Vue.extend({
     defaultValue: {
       type: String,
       default: "",
+    },
+    dataValidate: {
+      type: String,
+      default: "",
+    },
+  },
+  data() {
+    return {
+      model: this.defaultValue,
     }
   },
 });

@@ -61,6 +61,8 @@
 <script lang="ts">
 import Vue from "vue";
 import placeholderImage from "@/assets/960x960.png";
+import { DataService } from "@/services/DataService";
+import { Book } from "@/types";
 
 
 export default Vue.extend({
@@ -68,10 +70,17 @@ export default Vue.extend({
   data() {
     return {
       placeholderImage,
-      author: {},//todo
-      books: [], // todo
+      author: {},
+      books: [] as Book[],
     }
-  }
+  },
+
+  beforeRouteEnter() {
+    DataService.instance.getAuthor(this.$route.params.id).then(data => {
+      this.author = data.author;
+      this.books = data.books;
+    });
+  },
 });
 </script>
 

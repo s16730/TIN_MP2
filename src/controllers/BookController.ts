@@ -6,7 +6,7 @@ import { NotFoundException } from "@/exceptions/NotFoundException";
 import { AuthorService } from "@services/AuthorService";
 
 export class BookController {
-  public static async getBookPage(req: Request, res: Response) {
+  public static async getBook(req: Request, res: Response) {
     const bookService = BookService.instance;
     const books = await bookService.getBooks({ id: req.params.id })
 
@@ -14,24 +14,21 @@ export class BookController {
       const book = books[0];
       const authorSimilar = await bookService.getBooksByAuthors(book.authors)
 
-      res.render("page/book/book", {
+      res.end(JSON.stringify({
         book,
         authorSimilar,
-      })
+      }));
     } else {
       throw new NotFoundException()
     }
   }
 
-  public static async getBookViewPage(req: Request, res: Response) {
+  public static async getBooks(req: Request, res: Response) {
     const books = await BookService.instance.getBooks()
-    const authorService = AuthorService.instance;
-    const authors = await authorService.getAuthors()
 
-    res.render("page/book/bookView", {
+    res.end(JSON.stringify({
       books,
-      authors,
-    })
+    }));
   }
 
   public static async getEditAddBookPage(req: Request, res: Response) {

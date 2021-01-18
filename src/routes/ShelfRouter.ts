@@ -10,7 +10,7 @@ const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
 
 router.get('/all', (req, res, next) => {
-  ShelfController.getShelvesViewPage(req, res)
+  ShelfController.getShelves(req, res)
 })
 
 router.get('/all/short', (req, res, next) => {
@@ -36,7 +36,7 @@ router.post('/:id/edit', ((req, res, next) => {
 }))
 
 router.get('/:id', (req, res, next) => {
-  ShelfController.getShelfPage(req, res)
+  ShelfController.getShelf(req, res)
 })
 
 export default router;

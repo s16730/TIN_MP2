@@ -85,16 +85,16 @@ export default Vue.extend({
     }
   },
   computed: {
-    authorDefaultValue() {
+    authorDefaultValue(): string {
       let authorString = "";
-      if (data.authors) {
-        data.authors.forEach(author => authorString += `${author.name} ${author.surname}, `);
+      if (this.data.authors) {
+        this.data.authors.forEach(author => authorString += `${author.name} ${author.surname}, `);
       }
 
       return authorString;
     },
-    dataUrl() {
-      return data ? `/book/${data.id}/edit` : `/book/add`;
+    dataUrl(): string {
+      return this.data ? `/book/${this.data.id}/edit` : `/book/add`;
     }
   },
   components: {

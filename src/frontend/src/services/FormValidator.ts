@@ -12,18 +12,6 @@ export class FormValidator {
     return FormValidator._instance;
   }
 
-
-  constructor() {
-    document.querySelectorAll<HTMLFormElement>('form').forEach(form => {
-      form.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-        this.validateAll();
-
-        form.dispatchEvent(new CustomEvent(FormValidator.EVENT, { detail: form.querySelectorAll('.error').length > 0 }))
-      })
-    })
-  }
-
   private validate(elem: HTMLElement): string[] {
     const validations = elem.getAttribute("data-validate")?.split(" ");
     const errors: string[] = [];

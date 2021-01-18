@@ -1,7 +1,7 @@
 import StatusCodes from 'http-status-codes';
 import { Request, Response, Router } from 'express';
 
-import { BookController } from "../controllers/BookController";
+import { BookController } from "@/controllers/BookController";
 import { UserService } from "@services/UserService";
 import { ArrayHelper } from "@/utils/ArrayHelper";
 import { UserRole } from "@entities/UserRole";
@@ -13,10 +13,10 @@ const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
 
 router.get('/all', (req, res, next) => {
-  BookController.getBookViewPage(req, res)
+  BookController.getBooks(req, res)
 });
 router.get('/', (req, res, next) => {
-  BookController.getBookViewPage(req, res)
+  BookController.getBooks(req, res)
 });
 
 router.get('/add', async (req, res, next) => {
@@ -54,7 +54,7 @@ router.post('/:id/edit', async (req, res, next) => {
   if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
     await BookController.updateBook(req, res)
 
-    BookController.getBookViewPage(req, res)
+    BookController.getBooks(req, res)
   } else {
     throw new ForbiddenException();
   }
@@ -63,7 +63,7 @@ router.post('/:id/edit', async (req, res, next) => {
 
 
 router.get('/:id', (req, res, next) => {
-  BookController.getBookPage(req, res)
+  BookController.getBook(req, res)
 });
 
 export default router;

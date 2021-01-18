@@ -52,15 +52,15 @@ router.post('/:id/edit', async (req, res, next) => {
 })
 
 router.get('/all', (req, res, next) => {
-  AuthorController.getAuthorViewPage(req, res)
+  AuthorController.getAuthors(req, res)
 })
 
 router.get('/:id/books', (req, res, next) => {
-  AuthorController.getAuthorBooksViewPage(req, res)
+  AuthorController.getAuthorBooks(req, res)
 })
 
 router.get('/:id', (req, res, next) => {
-  AuthorController.getAuthorPage(req, res)
+  AuthorController.getAuthor(req, res)
 })
 
 export default router;

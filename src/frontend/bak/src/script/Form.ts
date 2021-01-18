@@ -1,5 +1,5 @@
-import { DataObject, ErrorObject } from "../../../../types";
-import { FormValidator } from "./FormValidator";
+import { FormValidator } from "../../../src/services/FormValidator";
+import { DataObject, ErrorObject } from "../../../src/types";
 
 export class Form {
   private readonly element: HTMLFormElement;

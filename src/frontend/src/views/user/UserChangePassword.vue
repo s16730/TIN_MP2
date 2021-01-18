@@ -2,22 +2,16 @@
   <div :class="`component component--${name}`">
     <section class="container section section--register">
       <form class="form form--register"
-            data-url="/user/register"
+            data-url="/user/changePassword"
       >
         <h1 class="form__header">
-          {{ $t('user.register') }}
+          {{ $t('user.changePassword') }}
         </h1>
 
-        <FieldInput field-name="email"
-                    :label="$t('user.email')"
-                    type="text"
-                    data-validate="required length email"
-        />
-
-        <FieldInput field-name="username"
-                    :label="$t('user.username')"
-                    type="text"
-                    data-validate="required length"
+        <FieldInput field-name="currentPassword"
+                    :label="$t('user.currentPassword')"
+                    type="currentPassword"
+                    data-validate="required"
         />
 
         <FieldInput field-name="password"
@@ -32,7 +26,7 @@
                     data-validate="required equals=password"
         />
 
-        <FieldSubmit :label="$t('user.register')"/>
+        <FieldSubmit :label="$t('user.changePassword')"/>
       </form>
     </section>
   </div>
@@ -43,10 +37,8 @@ import Vue from "vue";
 import FieldSubmit from "@/components/form/FieldSubmit.vue";
 import FieldInput from "@/components/form/FieldInput.vue";
 
-
 export default Vue.extend({
-  name: "UserRegisterView",
-
+  name: "UserChangePassword",
   components: {
     FieldInput,
     FieldSubmit,

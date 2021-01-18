@@ -7,63 +7,53 @@ import { UserRole } from "@entities/UserRole";
 import { NotFoundException } from "@/exceptions/NotFoundException";
 
 export class UserController {
-  public static getLoginPage(req: Request, res: Response) {
-    res.render("page/user/login", {})
-  }
 
-  public static getRegistrationPage(req: Request, res: Response) {
-    res.render("page/user/register", {})
-  }
-
-  public static async getUserPage(req: Request, res: Response) {
+  public static async getFullUser(req: Request, res: Response) {
     const userService = UserService.instance;
     const users = await userService.getUsers({ id: req.params.id })
     const user: User = users[0];
 
-    if (!user) {
-
+    if (user) {
       const shelfService = ShelfService.instance;
       const shelves = await shelfService.getShelf({ owner: user })
 
-      res.render("page/user/user", {
+      res.end(JSON.stringify({
         user,
         shelves,
-      })
+      }));
     } else {
       throw new NotFoundException()
     }
   }
 
-  public static async getCurrentUserPage(req: Request, res: Response) {
+  public static async getCurrentUser(req: Request, res: Response) {
     const userService = UserService.instance;
 
     const users = await userService.getUsers({ id: (req.user as any).id })
     const user: User = users[0];
 
     if (!user) {
-      res.redirect("/user/login");
+      res.end(JSON.stringify({
+        user: null,
+      }));
+    } else {
+      const shelfService = ShelfService.instance;
+      const shelves = await shelfService.getShelf({ owner: user })
+
+      res.end(JSON.stringify({
+        user,
+        shelves,
+      }))
     }
-
-    const shelfService = ShelfService.instance;
-    const shelves = await shelfService.getShelf({ owner: user })
-
-    res.render("page/user/user", {
-      user,
-      shelves,
-    })
   }
 
-  public static async getUserViewPage(req: Request, res: Response) {
+  public static async getUsers(req: Request, res: Response) {
     const userService = UserService.instance;
-    const users = await userService.getUsers({ id: req.params.id })
+    const users = await userService.getUsers()
 
-    res.render("page/user/usersView", {
+    res.end(JSON.stringify({
       users,
-    })
-  }
-
-  public static getEditPage(req: Request, res: Response) {
-    res.render("page/user/register", {})
+    }));
   }
 
   static logout() {

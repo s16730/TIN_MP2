@@ -1,5 +1,5 @@
 <template>
-
+  <div :class="`component component--${name}`"></div>
 </template>
 
 <script lang="ts">
@@ -7,7 +7,7 @@ import Vue from "vue";
 
 
 export default Vue.extend({
-  name: "UsersView"
+  name: "UsersView",
 });
 </script>
 

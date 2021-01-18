@@ -8,6 +8,7 @@
       <% } %>
       <form class="form form--author"
             :data-url="dataUrl"
+            @submit.prevent="submit"
       >
         <h1 class="visually-hidden">
           {{ $t('author.add') }}
@@ -21,14 +22,12 @@
           </div>
           <div class="author__info">
             <FieldInput field-name="name"
-                        class="field__label__input"
                         :label="$t('author.name')"
                         type="text"
                         data-validate="required length"
                         :default-value="data ? data.name : ''"
             />
             <FieldInput field-name="surname"
-                        class="field__label__input"
                         :label="$t('author.surname')"
                         type="text"
                         data-validate="required length"
@@ -54,25 +53,33 @@ import FieldInput from "@/components/form/FieldInput.vue";
 import FieldTextarea from "@/components/form/FieldTextarea.vue";
 import FieldSubmit from "@/components/form/FieldSubmit.vue";
 import image from "@/assets/960x960.png";
+import { DataService } from "@/services/DataService";
 
 export default Vue.extend({
   name: "EditAuthorView",
-  components: {
-    FieldInput,
-    FieldSubmit,
-    FieldTextarea,
-  },
   data() {
     return {
       authorImg: image,
       data: {}//todo
     }
   },
-  computed: {
-    dataUrl() {
-      return data ? `/author/${data.id}/edit` : `/author/add`;
+  beforeRouteEnter() {
+  },
+  methods: {
+    submit() {
+      console.log(arguments)
     }
-  }
+  },
+  computed: {
+    dataUrl(): string {
+      return this.data ? `/author/${this.data.id}/edit` : `/author/add`;
+    }
+  },
+  components: {
+    FieldInput,
+    FieldSubmit,
+    FieldTextarea,
+  },
 });
 </script>
 

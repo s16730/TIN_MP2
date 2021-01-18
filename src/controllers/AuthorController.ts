@@ -6,7 +6,7 @@ import { Author } from "@entities/Author";
 import { NotFoundException } from "@/exceptions/NotFoundException";
 
 export class AuthorController {
-  public static async getAuthorPage(req: Request, res: Response) {
+  public static async getAuthor(req: Request, res: Response) {
     const authorService = AuthorService.instance;
     const authors = await authorService.getAuthors({ id: req.params.id });
 
@@ -16,25 +16,25 @@ export class AuthorController {
 
       const books = await authorService.getBooks(author);
 
-      res.render("page/author/author", {
+      res.end(JSON.stringify({
         author,
-        books
-      })
+        books,
+      }))
     } else {
       throw new NotFoundException()
     }
   }
 
-  public static async getAuthorViewPage(req: Request, res: Response) {
+  public static async getAuthors(req: Request, res: Response) {
     const authorService = AuthorService.instance;
     const authors = await authorService.getAuthors()
 
-    res.render("page/author/authorsView", {
+    res.end(JSON.stringify({
       authors
-    })
+    }));
   }
 
-  public static async getAuthorBooksViewPage(req: Request, res: Response) {
+  public static async getAuthorBooks(req: Request, res: Response) {
     const bookService = BookService.instance;
     const authorService = AuthorService.instance;
 
@@ -43,10 +43,9 @@ export class AuthorController {
     if (!author) {
       const books = await bookService.getBooksByAuthors(author);
 
-      res.render("page/book/bookView", {
+      res.end(JSON.stringify({
         books,
-        authors: null,
-      })
+      }))
     } else {
       throw new NotFoundException()
     }

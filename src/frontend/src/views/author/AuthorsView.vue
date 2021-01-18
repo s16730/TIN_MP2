@@ -28,14 +28,19 @@
 <script lang="ts">
 import Vue from "vue";
 import placeholderImage from "@/assets/960x960.png";
+import { DataService } from "@/services/DataService";
+import { Author } from "@/types";
 
 export default Vue.extend({
   name: "AuthorsView",
   data() {
     return {
       placeholderImage,
-      authors: []//todo
+      authors: [] as Author[],
     }
+  },
+  beforeRouteEnter() {
+    DataService.instance.getAllAuthors().then(data => this.authors = data.authors);
   },
 });
 </script>
