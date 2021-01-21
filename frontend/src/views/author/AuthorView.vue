@@ -1,5 +1,7 @@
 <template>
-  <div :class="`component--{name}`">
+  <div :class="`component--{name}`"
+       :key="author.id"
+  >
     <section class="section section--author">
       <div class="container author author--full">
         <div class="author__photo">
@@ -62,7 +64,7 @@
 import Vue from "vue";
 import placeholderImage from "@/assets/960x960.png";
 import { DataService } from "@/services/DataService";
-import { Book } from "@/types";
+import { AuthorResponse, Book, BookResponse } from "@/types";
 
 
 export default Vue.extend({
@@ -74,14 +76,25 @@ export default Vue.extend({
       books: [] as Book[],
     }
   },
+  beforeRouteEnter(to, from, next) {
+    DataService.instance.getAuthor(to.params.id).then(data => {
+      next((vm: any) => vm.setData(data));
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.author = {};
+    this.books = [];
 
-  mounted() {
-    Vue.nextTick(() => {
-      DataService.instance.getAuthor(this.$route.params.id).then(data => {
-        this.author = data.author;
-        this.books = data.books;
-      });
+    DataService.instance.getAuthor(to.params.id).then(data => {
+      this.setData(data)
+      next()
     })
+  },
+  methods: {
+    setData(data: AuthorResponse): void {
+      this.author = data.author;
+      this.books = data.books;
+    }
   }
 });
 </script>

@@ -1,6 +1,8 @@
 import { Endpoint } from "@/const/Endpoint";
 import { DataObject } from "@/types";
 
+//todo: styles && forms
+
 export class EndpointService {
   public static getUrl(endpoint: Endpoint, params: DataObject = {}): string {
     const regexp = /{\w+}/;

@@ -1,12 +1,14 @@
 <template>
-  <div :class="`component{ component--{name}`">
+  <div :class="`component{ component--{name}`"
+       :key="data.id"
+  >
     <section class="section section--book">
       <!--      <% if (message) { %>-->
       <!--      <span>-->
       <!--            <%= message %>-->
       <!--        </span>-->
       <!--      <% } %>-->
-      <form class="form form--book"
+      <Form class="form--book"
             :data-url="dataUrl"
       >
         <h1>
@@ -62,7 +64,7 @@
             <FieldSubmit :label="$t('save')"/>
           </div>
         </div>
-      </form>
+      </Form>
     </section>
   </div>
 </template>
@@ -75,7 +77,8 @@ import FieldTextarea from "@/components/form/FieldTextarea.vue";
 import FieldAutocomplete from "@/components/form/FieldAutocomplete.vue";
 import placeholderImage from "@/assets/960x960.png";
 import { DataService } from "@/services/DataService";
-import { Book } from "@/types";
+import { Book, BookResponse } from "@/types";
+import Form from "@/components/form/Form.vue";
 
 
 export default Vue.extend({
@@ -86,15 +89,25 @@ export default Vue.extend({
       data: {} as Book,
     }
   },
-  mounted() {
-    Vue.nextTick(() => {
-      if (this.$route.params.id) {
-        DataService.instance.getBook(this.$route.params.id).then(data => {
-          this.data = data.book;
-        });
-      }
+  beforeRouteEnter(to, from, next) {
+    DataService.instance.getBook(to.params.id).then(data => {
+      next((vm: any) => vm.setData(data));
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.data = {} as Book;
+
+    DataService.instance.getBook(to.params.id).then(data => {
+      this.setData(data)
+      next()
     })
   },
+  methods: {
+    setData(data: BookResponse): void {
+      this.data = data.book;
+    }
+  },
+
   computed: {
     authorDefaultValue(): string {
       let authorString = "";
@@ -105,7 +118,7 @@ export default Vue.extend({
       return authorString;
     },
     dataUrl(): string {
-      return this.data ? `/book/${this.data.id}/edit` : `/book/add`;
+      return this.data ? `/api/book/${this.data.id}/edit` : `/api/book/add`;
     }
   },
   components: {
@@ -113,6 +126,7 @@ export default Vue.extend({
     FieldAutocomplete,
     FieldSubmit,
     FieldTextarea,
+    Form,
   },
 });
 </script>

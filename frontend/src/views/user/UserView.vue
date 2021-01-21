@@ -1,5 +1,7 @@
 <template>
-  <div :class="`component{ component--{name}`">
+  <div :class="`component{ component--{name}`"
+       :key="user.id"
+  >
     <section class="section section--user  section--background-light">
       <h1 class="visually-hidden">
         {{ $t('user.details') }}
@@ -92,7 +94,7 @@ import Vue from "vue";
 import placeholderImage from "@/assets/960x960.png";
 import personImage from "@/assets/person.png";
 import { DataService } from "@/services/DataService";
-import { Shelf } from "@/types";
+import { FullUserResponse, Shelf, UserResponse } from "@/types";
 
 
 export default Vue.extend({
@@ -105,13 +107,24 @@ export default Vue.extend({
       user: {},
     };
   },
-  mounted() {
-    Vue.nextTick(() => {
-      DataService.instance.getUser(this.$route.params.id).then(data => {
-        this.user = data.user;
-        this.shelves = data.shelves;
-      });
+  beforeRouteEnter(to, from, next) {
+    DataService.instance.getUser(to.params.id).then(data => {
+      next((vm: any) => vm.setData(data));
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.user = {};
+    this.shelves = [];
+    DataService.instance.getUser(to.params.id).then(data => {
+      this.setData(data)
+      next()
     })
+  },
+  methods: {
+    setData(data: FullUserResponse): void {
+      this.user = data.user;
+      this.shelves = data.shelves;
+    }
   },
 });
 </script>

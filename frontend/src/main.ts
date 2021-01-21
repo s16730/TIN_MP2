@@ -7,6 +7,7 @@ import VueI18n from 'vue-i18n'
 
 import pl from "@/translations/pl.json";
 
+import '@/assets/scss/styles.scss';
 
 Vue.config.productionTip = false
 

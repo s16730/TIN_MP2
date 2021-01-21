@@ -17,7 +17,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropType } from "vue";
+import { ImageSourceSet } from "@/types";
 
 
 export default Vue.extend({

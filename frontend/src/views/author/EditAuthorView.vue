@@ -1,14 +1,15 @@
 <template>
-  <div :class="`component--{name}`">
+  <div :class="`component--{name}`"
+       :key="data.id"
+  >
     <section class="section section--author">
       <!--      <% if (message) { %>-->
       <!--      <span>-->
       <!--            <%= message %>-->
       <!--        </span>-->
       <!--      <% } %>-->
-      <form class="form form--author"
+      <Form class="form"
             :data-url="dataUrl"
-            @submit.prevent="submit"
       >
         <h1 class="visually-hidden">
           {{ $t('author.add') }}
@@ -42,7 +43,7 @@
           </div>
           <FieldSubmit :label="$t('save')"/>
         </div>
-      </form>
+      </Form>
     </section>
   </div>
 </template>
@@ -54,7 +55,8 @@ import FieldTextarea from "@/components/form/FieldTextarea.vue";
 import FieldSubmit from "@/components/form/FieldSubmit.vue";
 import image from "@/assets/960x960.png";
 import { DataService } from "@/services/DataService";
-import { Author } from "@/types";
+import { Author, AuthorResponse, BookResponse } from "@/types";
+import Form from "@/components/form/Form.vue";
 
 export default Vue.extend({
   name: "EditAuthorView",
@@ -64,29 +66,34 @@ export default Vue.extend({
       data: {} as Author,
     }
   },
-  mounted() {
-    Vue.nextTick(() => {
-      if (this.$route.params.id) {
-        DataService.instance.getAuthor(this.$route.params.id).then(data => {
-          this.data = data.author;
-        });
-      }
+  beforeRouteEnter(to, from, next) {
+    DataService.instance.getAuthor(to.params.id).then(data => {
+      next((vm: any) => vm.setData(data));
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.data = {} as Author;
+
+    DataService.instance.getAuthor(to.params.id).then(data => {
+      this.setData(data)
+      next()
     })
   },
   methods: {
-    submit(...test: any) {
-      console.log(test)
-    }
+    setData(data: AuthorResponse): void {
+      this.data = data.author;
+    },
   },
   computed: {
     dataUrl(): string {
-      return this.data ? `/author/${this.data.id}/edit` : `/author/add`;
+      return this.data ? `/api/author/${this.data.id}/edit` : `/api/author/add`;
     }
   },
   components: {
     FieldInput,
     FieldSubmit,
     FieldTextarea,
+    Form,
   },
 });
 </script>

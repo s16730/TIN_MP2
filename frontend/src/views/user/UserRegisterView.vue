@@ -1,8 +1,8 @@
 <template>
   <div :class="`component{ component--{name}`">
     <section class="container section section--register">
-      <form class="form form--register"
-            data-url="/user/register"
+      <Form class="form form--register"
+            data-url="/api/user/register"
       >
         <h1 class="form__header">
           {{ $t('user.register') }}
@@ -33,7 +33,7 @@
         />
 
         <FieldSubmit :label="$t('user.register')"/>
-      </form>
+      </Form>
     </section>
   </div>
 </template>
@@ -42,6 +42,7 @@
 import Vue from "vue";
 import FieldSubmit from "@/components/form/FieldSubmit.vue";
 import FieldInput from "@/components/form/FieldInput.vue";
+import Form from "@/components/form/Form.vue";
 
 
 export default Vue.extend({
@@ -50,6 +51,7 @@ export default Vue.extend({
   components: {
     FieldInput,
     FieldSubmit,
+    Form,
   },
 });
 </script>

@@ -1,5 +1,7 @@
 <template>
-  <div :class="`component component--{name}`">
+  <div :class="`component component--{name}`"
+       :key="book.id"
+  >
     <section class="section section--book">
       <div class="container book book--full">
         <div class="book__cover">
@@ -91,7 +93,7 @@
 import Vue from "vue";
 import placeholderImage from "@/assets/960x960.png";
 import { DataService } from "@/services/DataService";
-import { Book } from "@/types";
+import { Book, BookResponse } from "@/types";
 
 export default Vue.extend({
   name: "BookView",
@@ -102,14 +104,25 @@ export default Vue.extend({
       authorSimilar: [] as Book[],
     }
   },
-  mounted() {
-    Vue.nextTick(() => {
-      DataService.instance.getBook(this.$route.params.id).then(data => {
-        this.book = data.book;
-        this.authorSimilar = data.authorSimilar;
-      });
+  beforeRouteEnter(to, from, next) {
+    DataService.instance.getBook(to.params.id).then(data => {
+      next((vm: any) => vm.setData(data));
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.book = {};
+    this.authorSimilar = [];
+    DataService.instance.getBook(to.params.id).then(data => {
+      this.setData(data)
+      next()
     })
   },
+  methods: {
+    setData(data: BookResponse): void {
+      this.book = data.book;
+      this.authorSimilar = data.authorSimilar;
+    }
+  }
 });
 </script>
 

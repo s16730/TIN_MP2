@@ -1,5 +1,7 @@
 <template>
-  <div :class="`component{ component--{name}`">
+  <div :class="`component{ component--{name}`"
+       :key="data.id"
+  >
     <section class="section section--author">
       <!--      <% if (message) { %>-->
       <!--      <span>-->
@@ -7,7 +9,7 @@
       <!--        </span>-->
       <!--      <% } %>-->
 
-      <form class="form form--shelf"
+      <Form class="form--shelf"
             :data-url="dataUrl"
       >
         <h1>
@@ -29,7 +31,7 @@
           </div>
           <FieldSubmit :label="$t('save')"/>
         </div>
-      </form>
+      </Form>
     </section>
   </div>
 </template>
@@ -40,7 +42,8 @@ import FieldInput from "@/components/form/FieldInput.vue";
 import FieldSubmit from "@/components/form/FieldSubmit.vue";
 import FieldTextarea from "@/components/form/FieldTextarea.vue";
 import { DataService } from "@/services/DataService";
-import { Shelf } from "@/types";
+import { BookResponse, Shelf, ShelfResponse } from "@/types";
+import Form from "@/components/form/Form.vue";
 
 
 export default Vue.extend({
@@ -50,23 +53,35 @@ export default Vue.extend({
       formData: {} as Shelf
     }
   },
-  mounted() {
-    Vue.nextTick(() => {
-      if (this.$route.params.id) {
-        DataService.instance.getShelf(this.$route.params.id).then(data => {
-          this.formData = data.shelf;
-        });
-      }
+  beforeRouteEnter(to, from, next) {
+    DataService.instance.getShelf(to.params.id).then(data => {
+      next((vm: any) => vm.setData(data));
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.formData = {} as Shelf;
+
+    DataService.instance.getShelf(to.params.id).then(data => {
+      this.setData(data)
+      next()
     })
   },
+  methods: {
+    setData(data: ShelfResponse): void {
+      this.formData = data.shelf;
+    }
+  },
+
+
   computed: {
     dataUrl(): string {
-      return this.formData ? `/shelf/${this.formData.id}/edit` : `/shelf/add`;
+      return this.formData ? `/api/shelf/${this.formData.id}/edit` : `/api/shelf/add`;
     }
   },
   components: {
     FieldInput,
     FieldSubmit,
+    Form,
   },
 });
 </script>

@@ -1,5 +1,7 @@
 <template>
-  <div :class="`component{ component--{name}`">
+  <div :class="`component{ component--{name}`"
+       :key="shelf.id"
+  >
     <section class="section section--shelf">
       <div class="container shelf shelf--full">
         <div class="actions actions--shelf">
@@ -51,7 +53,7 @@
 import Vue from "vue";
 import placeholderImage from "@/assets/960x960.png";
 import { DataService } from "@/services/DataService";
-import { Book } from "@/types";
+import { Book, BookResponse, ShelfResponse } from "@/types";
 
 
 export default Vue.extend({
@@ -63,13 +65,24 @@ export default Vue.extend({
       books: [] as Book[],
     }
   },
-  mounted() {
-    Vue.nextTick(() => {
-      DataService.instance.getShelf(this.$route.params.id).then(data => {
-        this.shelf = data.shelf;
-        this.books = data.books;
-      });
+  beforeRouteEnter(to, from, next) {
+    DataService.instance.getShelf(to.params.id).then(data => {
+      next((vm: any) => vm.setData(data));
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.shelf = {};
+    this.books = [];
+    DataService.instance.getShelf(to.params.id).then(data => {
+      this.setData(data)
+      next()
     })
+  },
+  methods: {
+    setData(data: ShelfResponse): void {
+      this.shelf = data.shelf;
+      this.books = data.books;
+    }
   },
 });
 </script>

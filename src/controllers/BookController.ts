@@ -79,6 +79,8 @@ export class BookController {
     const bookService = BookService.instance;
 
     const body = req.body;
+    console.log(req.params)
+
     const book = (await bookService.getBooks({ id: req.params.id }))[0];
     if (book) {
 

@@ -109,3 +109,4 @@ export interface UserListResponse {
   users: User[],
 }
 
+export interface ImageSourceSet{}
