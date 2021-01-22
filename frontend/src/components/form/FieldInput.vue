@@ -13,12 +13,13 @@
              @input="$emit('input', model)"
       >
     </label>
+    <ErrorField :name="fieldName"/>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from "vue";
-import { ImageSourceSet } from "@/types";
+import Vue from "vue";
+import ErrorField from "@/components/form/ErrorField.vue";
 
 
 export default Vue.extend({
@@ -41,11 +42,9 @@ export default Vue.extend({
       model: this.defaultValue,
     }
   },
+  components: {
+    ErrorField
+  },
 });
 </script>
 
-<style scoped
-       lang="scss"
->
-
-</style>

@@ -10,13 +10,14 @@
              type="text"
              :value="defaultValue"
       >
-      <!--             :data-validate="required length"-->
+      <ErrorField :name="fieldName"/>
     </label>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import ErrorField from "@/components/form/ErrorField.vue";
 
 
 export default Vue.extend({
@@ -28,6 +29,9 @@ export default Vue.extend({
       type: String,
       default: "",
     }
+  },
+  components: {
+    ErrorField
   },
 });
 </script>

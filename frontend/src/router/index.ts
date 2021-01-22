@@ -17,6 +17,7 @@ import ShelfView from "@/views/shelf/ShelfView.vue";
 import EditShelfView from "@/views/shelf/EditShelfView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 import AccessDeniedView from "@/views/AccessDeniedView.vue";
+import CurrentUserView from "@/views/user/CurrentUserView.vue";
 
 Vue.use(VueRouter)
 
@@ -28,8 +29,8 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/user',
-    name: 'UserDefaultView',
-    component: UsersView,
+    name: 'CurrentUserView',
+    component: CurrentUserView,
   },
   {
     name: 'UsersView',
@@ -65,6 +66,11 @@ const routes: Array<RouteConfig> = [
     path: '/shelf/all',
     name: 'ShelvesView',
     component: ShelvesView,
+  },
+  {
+    path: '/shelf/add',
+    name: 'AddShelfView',
+    component: EditShelfView,
   },
   {
     path: '/shelf/:id/edit',

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <GlobalMessage/>
     <header class="header">
       <div class="header__top-bar container">
         <div class="brand">
@@ -12,7 +13,9 @@
       </span>
         </div>
 
-        <div class="account account--logged-out">
+        <div class="account account--logged-out"
+             v-if="!currentUser"
+        >
           <router-link class="account__button button"
                        to="/user/register"
           >
@@ -22,6 +25,11 @@
                        to="/user/login"
           >
             {{ $t('Login') }}
+          </router-link>
+        </div>
+        <div v-else>
+          <router-link :to="`/user/${currentUser.id}`">
+            {{ currentUser.username }}
           </router-link>
         </div>
       </div>
@@ -51,6 +59,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import logoImg from "@/assets/960x960.png"
+import GlobalMessage from "@/components/form/GlobalMessage.vue";
+import { mapState } from "vuex";
 
 export default Vue.extend({
   name: "App",
@@ -59,28 +69,22 @@ export default Vue.extend({
       logoImg,
     };
   },
+  created() {
+    this.$store.dispatch('init')
+  },
+  computed: {
+    ...mapState({
+      currentUser(): boolean {
+        return this.$store.state.currentUser;
+      },
+    }),
+  },
+  components: {
+    GlobalMessage,
+  }
 });
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>

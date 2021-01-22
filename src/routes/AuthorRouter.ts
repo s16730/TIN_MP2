@@ -7,6 +7,7 @@ import { ArrayHelper } from "@/utils/ArrayHelper";
 import { UserRole } from "@entities/UserRole";
 import { BookController } from "@/controllers/BookController";
 import { ForbiddenException } from "@/exceptions/ForbiddenException";
+import passport from "passport";
 
 
 const router = Router();
@@ -22,34 +23,40 @@ router.get('/add', async (req, res, next) => {
     throw new ForbiddenException();
   }
 })
-router.post('/add', async (req, res, next) => {
-  const user = await UserService.currentUser(req);
+router.post('/add',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const user = await UserService.currentUser(req);
 
-  if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
-    AuthorController.addAuthor(req, res)
-  } else {
-    throw new ForbiddenException();
-  }
-})
+    if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
+      AuthorController.addAuthor(req, res)
+    } else {
+      throw new ForbiddenException();
+    }
+  })
 
-router.get('/:id/edit', async (req, res, next) => {
-  const user = await UserService.currentUser(req);
+router.get('/:id/edit',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const user = await UserService.currentUser(req);
 
-  if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
-    AuthorController.getEditAuthorPage(req, res)
-  } else {
-    throw new ForbiddenException();
-  }
-})
-router.post('/:id/edit', async (req, res, next) => {
-  const user = await UserService.currentUser(req);
+    if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
+      AuthorController.getEditAuthorPage(req, res)
+    } else {
+      throw new ForbiddenException();
+    }
+  })
+router.post('/:id/edit',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const user = await UserService.currentUser(req);
 
-  if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
-    AuthorController.updateAuthor(req, res)
-  } else {
-    throw new ForbiddenException();
-  }
-})
+    if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
+      AuthorController.updateAuthor(req, res)
+    } else {
+      throw new ForbiddenException();
+    }
+  })
 
 router.get('/all', (req, res, next) => {
   AuthorController.getAuthors(req, res)

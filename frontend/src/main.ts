@@ -5,23 +5,16 @@ import store from './store'
 import VueI18n from 'vue-i18n'
 // import pl from '@/translations/pl.json'
 
-import pl from "@/translations/pl.json";
-
 import '@/assets/scss/styles.scss';
+import i18n from "@/i18n";
+import { DataService } from "@/services/DataService";
 
 Vue.config.productionTip = false
 
 
-Vue.use(VueI18n)
-
-const i18n = new VueI18n({
-  locale: 'pl', // set locale
-  messages: pl, // set locale messages
-})
-
 new Vue({
+  i18n,
   router,
   store,
-  i18n,
   render: h => h(App)
 }).$mount('#app')

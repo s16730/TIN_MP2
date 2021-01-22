@@ -1,6 +1,6 @@
 <template>
   <div :class="`component{ component--{name}`"
-       :key="data.id"
+       :key="data ? data.id : 123"
   >
     <section class="section section--author">
       <!--      <% if (message) { %>-->
@@ -50,32 +50,40 @@ export default Vue.extend({
   name: "EditShelfView",
   data() {
     return {
-      formData: {} as Shelf
+      data: null as Shelf | null
     }
   },
   beforeRouteEnter(to, from, next) {
-    DataService.instance.getShelf(to.params.id).then(data => {
-      next((vm: any) => vm.setData(data));
-    });
+    if (to.params.id && !Number.isNaN(to.params.id)) {
+      DataService.instance.getShelf(to.params.id).then(data => {
+        next((vm: any) => vm.setData(data));
+      });
+    } else {
+      next()
+    }
   },
   beforeRouteUpdate(to, from, next) {
-    this.formData = {} as Shelf;
+    this.data = null;
 
-    DataService.instance.getShelf(to.params.id).then(data => {
-      this.setData(data)
+    if (to.params.id && !Number.isNaN(to.params.id)) {
+      DataService.instance.getShelf(to.params.id).then(data => {
+        this.setData(data)
+        next()
+      })
+    } else {
       next()
-    })
+    }
   },
   methods: {
     setData(data: ShelfResponse): void {
-      this.formData = data.shelf;
+      this.data = data.shelf;
     }
   },
 
 
   computed: {
     dataUrl(): string {
-      return this.formData ? `/api/shelf/${this.formData.id}/edit` : `/api/shelf/add`;
+      return this.data ? `/api/shelf/${this.data.id}/edit` : `/api/shelf/add`;
     }
   },
   components: {

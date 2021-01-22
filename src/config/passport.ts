@@ -4,6 +4,11 @@ import { getRepository } from "typeorm/index";
 import { UserService } from "@services/UserService";
 import { PassportStatic } from "passport";
 
+// @ts-ignore
+import { Strategy, ExtractJwt, VerifiedCallback } from 'passport-jwt';
+import { passportConfig } from "@/config/passportConfig";
+
+
 const passportSetup = (passport: PassportStatic) => {
   passport.serializeUser((user: any, done) => {
     done(null, user.id)
@@ -15,25 +20,19 @@ const passportSetup = (passport: PassportStatic) => {
     done(null, user);
   })
 
-
-  passport.use(
-    "local",
-    new LocalStrategy.Strategy({
-        usernameField: "login",
-        passwordField: "password",
-      }, async (email, password, done) => {
-      let user = (await UserService.instance.getUsers({
-          email
-        }))[0];
-
-        if (!user || !user.isPasswordValid(password)) {
-          return done(null, false, { message: "Nieprawidłowa nazwa użytkownika lub hasło." });
-        } else {
-          return done(null, user);
-        }
+  let opts = {} as any;
+  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('Bearer');
+  opts.secretOrKey = passportConfig.secret;
+  passport.use(new Strategy(opts, function (jwt_payload: any, done: VerifiedCallback) {
+    UserService.instance.getUsers({ email: jwt_payload.email }).then((users) => {
+      if (users[0]) {
+        return done(null, users[0]);
+      } else {
+        return done(null, false);
+        // or you could create a new account
       }
-    )
-  )
+    }).catch(err => done(err, false))
+  }));
 }
 
 

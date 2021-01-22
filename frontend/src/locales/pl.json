@@ -1,0 +1,50 @@
+{
+  "Library": "Biblioteczka",
+  "Login": "Zaloguj się",
+  "Register": "Zarejestruj się",
+  "Home": "Strona główna",
+  "save": "Zapisz",
+  "user": {
+    "username": "Nazwa użytkownika",
+    "email": "E-mail",
+    "creationDate": "Data utworzenia konta",
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "password": "Hasło",
+    "repeatPassword": "Powtórz hasło"
+  },
+  "shelves": {
+    "plural": "Półki"
+  },
+  "shelf": {
+    "plural": "Półki",
+    "add": "Dodaj półkę",
+    "name": "Nazwa",
+    "positions": "{number} pozycji",
+    "edit": "Edytuj półkę"
+  },
+  "books": {
+    "popular": "Popularne książki:"
+  },
+  "book": {
+    "editBook": "Edytuj książkę",
+    "addBook": "Dodaj książkę",
+    "title": "Tytuł",
+    "author": "Autor",
+    "isbn": "ISBN",
+    "description": "Opis",
+    "similar": {
+      "plural": "Książki tych samych autorów",
+      "singular": "Książki tego samego autora"
+    }
+  },
+  "authors": {
+    "popular": "Popularni autorzy"
+  },
+  "author": {
+    "otherBooks": "Książki tego autora:",
+    "bio": "Opis",
+    "name": "Imię",
+    "surname": "Nazwisko"
+  }
+}

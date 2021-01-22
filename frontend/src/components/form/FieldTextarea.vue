@@ -10,12 +10,14 @@
                 @input="$emit('input', model)"
       >
       </textarea>
+      <ErrorField :name="fieldName"/>
     </label>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import ErrorField from "@/components/form/ErrorField.vue";
 
 
 export default Vue.extend({
@@ -32,7 +34,10 @@ export default Vue.extend({
     return {
       model: this.defaultValue,
     }
-  }
+  },
+  components: {
+    ErrorField
+  },
 });
 </script>
 

@@ -4,6 +4,15 @@
   >
     <section class="section section--book">
       <div class="container book book--full">
+        <div class="shelf-actions">
+          <button v-for="shelf of shelves"
+                  :key="shelf.id"
+                  @click="toggleOnShelf(shelf)"
+                  :ref="`shelf${shelf.id}`"
+          >
+            {{ getIsOnShelf(shelf) }} {{ shelf.name }}
+          </button>
+        </div>
         <div class="book__cover">
           <img :src="placeholderImage"
                :alt="book.title"
@@ -93,35 +102,86 @@
 import Vue from "vue";
 import placeholderImage from "@/assets/960x960.png";
 import { DataService } from "@/services/DataService";
-import { Book, BookResponse } from "@/types";
+import { Book, BookResponse, Shelf, ShelfListResponse } from "@/types";
 
 export default Vue.extend({
   name: "BookView",
   data() {
     return {
       placeholderImage,
-      book: {},
+      book: {} as Book,
       authorSimilar: [] as Book[],
+      shelves: [] as Shelf[],
     }
   },
   beforeRouteEnter(to, from, next) {
-    DataService.instance.getBook(to.params.id).then(data => {
-      next((vm: any) => vm.setData(data));
+
+    const shelves = DataService.instance.getAllShelves()
+    const book = DataService.instance.getBook(to.params.id);
+
+    Promise.all([shelves, book]).then(data => {
+      next((vm: any) => {
+        vm.setBookData(data[1])
+        vm.setShelvesData(data[0])
+      });
     });
   },
   beforeRouteUpdate(to, from, next) {
-    this.book = {};
+    this.book = {} as Book;
     this.authorSimilar = [];
-    DataService.instance.getBook(to.params.id).then(data => {
-      this.setData(data)
-      next()
-    })
+
+    const shelves = DataService.instance.getAllShelves()
+    const book = DataService.instance.getBook(to.params.id);
+
+    Promise.all([shelves, book]).then(data => {
+      next((vm: any) => {
+        vm.setBookData(data[1])
+        vm.setShelvesData(data[0])
+      });
+    });
   },
   methods: {
-    setData(data: BookResponse): void {
+    setBookData(data: BookResponse): void {
       this.book = data.book;
       this.authorSimilar = data.authorSimilar;
-    }
+    },
+    setShelvesData(data: ShelfListResponse): void {
+      this.shelves = data.shelves;
+    },
+    toggleOnShelf(shelf: Shelf) {
+      if (this.isOnShelf(shelf)) {
+        DataService.instance.RemoveFromShelf(this.book, shelf).then(() => {
+          shelf.books = shelf.books.filter(bookOnShelf => bookOnShelf.book.id !== this.book.id)
+          let elem: HTMLElement = this.$refs[`shelf${shelf.id}`] as HTMLElement
+
+          if (Array.isArray(elem)) {
+            elem = elem[0]
+          }
+          elem.innerText = elem.innerText.replace(/[+-]/, this.getIsOnShelf(shelf))
+        })
+      } else {
+        DataService.instance.AddToShelf(this.book, shelf).then(() => {
+          shelf.books.push({
+            shelf: shelf,
+            book: this.book,
+          });
+          let elem: HTMLElement = this.$refs[`shelf${shelf.id}`] as HTMLElement
+
+          if (Array.isArray(elem)) {
+            elem = elem[0]
+          }
+
+          elem.innerText = elem.innerText.replace(/[+-]/, this.getIsOnShelf(shelf))
+        });
+      }
+    },
+    isOnShelf(shelf: Shelf) {
+
+      return shelf.books.filter(bookOnShelf => bookOnShelf.book.id === this.book.id).length > 0;
+    },
+    getIsOnShelf(shelf: Shelf) {
+      return this.isOnShelf(shelf) ? "-" : "+"
+    },
   }
 });
 </script>

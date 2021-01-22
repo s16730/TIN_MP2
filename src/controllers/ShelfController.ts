@@ -5,6 +5,7 @@ import { Shelf } from "@entities/Shelf";
 import { UserService } from "@services/UserService";
 import { NotFoundException } from "@/exceptions/NotFoundException";
 import { ForbiddenException } from "@/exceptions/ForbiddenException";
+import { BookOnShelf } from "@entities/BookOnShelf";
 
 export class ShelfController {
   public static async getShelf(req: Request, res: Response) {
@@ -90,13 +91,16 @@ export class ShelfController {
 
           await shelfRepository.save(shelf);
 
-          res.end(JSON.stringify({ message: "Zapisano" }))
+          res.end(JSON.stringify({
+            redirect: `/shelf/${shelf.id}`,
+            message: "Zapisano"
+          }))
         } else {
           res.status(400)
           res.end(JSON.stringify({ errors }))
         }
       } else {
-        this.addShelf(req, res);
+        return await this.addShelf(req, res);
       }
     } else {
       throw new ForbiddenException()
@@ -105,7 +109,6 @@ export class ShelfController {
 
   static async addShelf(req: Request, res: Response) {
     const user = await UserService.currentUser(req);
-
     if (user) {
 
       const body = req.body;
@@ -118,7 +121,10 @@ export class ShelfController {
         shelf.owner = user;
         await shelfRepository.save(shelf);
 
-        res.end(JSON.stringify({ message: "Zapisano" }))
+        res.end(JSON.stringify({
+          redirect: `/shelf/${shelf.id}`,
+          message: "Zapisano"
+        }))
       } else {
         res.status(400)
         res.end(JSON.stringify({ errors }))
@@ -127,4 +133,57 @@ export class ShelfController {
       throw new ForbiddenException();
     }
   }
+
+  static async AddBookToShelf(req: Request, res: Response) {
+    const user = await UserService.currentUser(req);
+
+    if (user) {
+      const body = req.body;
+
+      const bookOnShelfRepository = getRepository<BookOnShelf>(BookOnShelf);
+
+      const bookOnShelf = bookOnShelfRepository.create();
+      try {
+        // @ts-ignore
+        bookOnShelf.book = body.bookId as unknown as number;
+        // @ts-ignore
+        bookOnShelf.shelf = body.shelfId as unknown as number;
+
+        await bookOnShelfRepository.save(bookOnShelf)
+
+        res.status(200).end()
+      } catch (e) {
+        console.log(e)
+        res.status(400).end()
+      }
+    } else {
+      throw new ForbiddenException();
+    }
+  }
+
+  static async RemoveBookFromShelf(req: Request, res: Response) {
+    const user = await UserService.currentUser(req);
+
+    if (user) {
+      const body = req.body;
+
+      const bookOnShelfRepository = getRepository<BookOnShelf>(BookOnShelf);
+
+      const result = await bookOnShelfRepository.find({
+        // @ts-ignore
+        book: body.bookId,
+        shelf: body.shelfId,
+      })
+
+      console.log(result)
+
+      await bookOnShelfRepository.remove(result);
+
+      res.status(200).end();
+    } else {
+      throw new ForbiddenException();
+    }
+  }
+
+
 }

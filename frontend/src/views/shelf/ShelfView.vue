@@ -19,7 +19,7 @@
           {{ $t('shelf.positions', {number: shelf.books.length}) }}
         </span>
 
-        <div class="list list--block">
+        <div class="list list--block" v-if="shelf.books.length > 0">
           <div v-for="book of books"
                :key="book.id"
                class="list__item book book--list-item"
