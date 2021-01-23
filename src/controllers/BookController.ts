@@ -50,7 +50,7 @@ export class BookController {
     const bookRepository = getRepository<Book>(Book);
 
     const body = req.body;
-    const book = bookRepository.create();
+    let book = bookRepository.create();
     const errors = BookService.validate(body);
 
     if (0 === errors.length) {
@@ -62,7 +62,7 @@ export class BookController {
       book.description = body.description;
       book.authors = await authorService.getAuthorsByFullName(body.authors.split(','));
 
-      await bookRepository.save(book);
+      book = await bookRepository.save(book);
 
       res.end(JSON.stringify({
         redirect: `/book/${book.id}`
@@ -77,11 +77,9 @@ export class BookController {
 
   static async updateBook(req: Request, res: Response) {
     const bookService = BookService.instance;
-
     const body = req.body;
-    console.log(req.params)
-
     const book = (await bookService.getBooks({ id: req.params.id }))[0];
+
     if (book) {
 
       const errors = BookService.validate(body);

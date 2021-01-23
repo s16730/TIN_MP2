@@ -79,15 +79,20 @@ router.post(
 
 router.get('/logout', (req, res, next) => {
   UserController.logout(req);
+
+  res.end(JSON.stringify({
+    redirect: '/',
+  }))
 })
 
-router.get('/:id/edit',
+router.post('/:id/edit',
   passport.authenticate('jwt', { session: false }),
   async (req, res, next) => {
     const user = await UserService.currentUser(req);
 
-    if (user && user.id.toString() === req.params.id) {
-      UserController.getFullUser(req, res)
+    if (user && user.id.toString() === req.params.id || user?.roles.includes(UserRole.ADMIN)) {
+      await UserController.update(req, res)
+      res.status(200).end(JSON.stringify({ redirect: `/user/${req.params.id}` }))
     } else {
       throw new ForbiddenException();
     }

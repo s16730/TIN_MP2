@@ -98,6 +98,11 @@ const routes: Array<RouteConfig> = [
     component: EditBookView,
   },
   {
+    path: '/book/add',
+    name: 'BookAdd',
+    component: EditBookView,
+  },
+  {
     path: '/book/:id',
     name: 'BookView',
     component: BookView,
@@ -110,6 +115,11 @@ const routes: Array<RouteConfig> = [
     path: '/author/all',
     name: 'AuthorsView',
     component: AuthorsView,
+  },
+  {
+    path: '/author/add',
+    name: 'AddAuthorView',
+    component: EditAuthorView,
   },
   {
     path: '/author/:id',

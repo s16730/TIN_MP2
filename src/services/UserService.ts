@@ -52,6 +52,31 @@ export class UserService {
     return errors.filter(e => e);
   }
 
+  static validateUpdate(body: DataObject) {
+    const errors = [];
+
+    errors.push(
+      Validator.isFilled("username", body.username),
+      Validator.isFilled("email", body.email),
+      Validator.isEmail("email", body.email),
+    );
+
+    return errors.filter(e => e);
+  }
+
+  static validatePassword(body: DataObject) {
+    const errors = [];
+
+    errors.push(
+      Validator.isFilled("password", body.password),
+      Validator.isFilled("repeatPassword", body.repeatPassword),
+      Validator.isSame("repeatPassword", body.repeatPassword, body.password),
+      Validator.isPasswordComplexEnough('password', body.password)
+    );
+
+    return errors.filter(e => e);
+  }
+
   static async currentUser(req: Request): Promise<User | null> {
     const users = await this.instance.getUsers({ id: (req.user as any).id })
     const user: User = users[0];

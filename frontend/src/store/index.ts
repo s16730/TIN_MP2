@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { DataObject, ErrorObject, FormSubmit } from "@/types";
+import { ErrorObject, FormSubmit } from "@/types";
 import { Mutation } from "@/const/Mutation";
 import router from "@/router";
 import { DataService } from "@/services/DataService";
+import { EndpointService } from "@/services/EndpointService";
+import { Endpoint } from "@/const/Endpoint";
 
 Vue.use(Vuex)
 
@@ -21,6 +23,9 @@ export default new Vuex.Store({
     },
     [Mutation.ClearGlobalMessage](state: any) {
       state.globalMessage = null;
+    },
+    [Mutation.SetCurrentUser](state: any, value: any) {
+      state.currentUser = value;
     },
     [Mutation.ClearErrors](state: any) {
       state.errors = [];
@@ -74,6 +79,24 @@ export default new Vuex.Store({
         if (responseData.message) {
           commit(Mutation.SetGlobalMessage, responseData.message);
         }
+      }
+    },
+    async logout({ state }) {
+      const response = await fetch(EndpointService.getUrl(Endpoint.UserLogout), {
+        method: "GET",
+        cache: "no-cache",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token') || ''
+        },
+      })
+
+      if (response.status === 200) {
+        state.currentUser = null;
+        localStorage.removeItem('token')
+        await router.push({ path: '/' })
+      } else {
+        state.globalMessage = "Wylogowanie nieudane";
       }
     }
   },

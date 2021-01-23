@@ -9,22 +9,10 @@
       <div class="container user user--full">
         <div class="actions actions--user">
           <router-link class="actions__action"
-                       v-if="user.hasEditPermission"
+                       v-if="user.hasUserEditPermission || user.id === $store.state.currentUser.id"
                        :to="`/user/${user.id}/edit`"
           >
             {{ $t('user.edit') }}
-          </router-link>
-          <router-link class="actions__action"
-                       v-if="user.hasBlockPermission"
-                       :to="`/user/${user.id}/block`"
-          >
-            {{ $t('user.block') }}
-          </router-link>
-          <router-link class="actions__action"
-                       v-if="user.hasPasswordChangePermission"
-                       :to="`/user/change-password`"
-          >
-            {{ $t('user.changePassword') }}
           </router-link>
         </div>
         <div class="user__avatar">
@@ -66,6 +54,10 @@
         <h1>
           {{ $t('shelves.plural') }}
         </h1>
+        <router-link to="/shelf/add"
+        >
+          {{ $t('shelf.create') }}
+        </router-link>
         <div class="list list--list">
           <router-link v-for="shelf of shelves"
                        :key="shelf.id"

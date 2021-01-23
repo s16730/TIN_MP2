@@ -1,6 +1,5 @@
 <template>
   <div :class="`component component--{name}`"
-       :key="book.id"
   >
     <section class="section section--book">
       <div class="container book book--full">
@@ -12,6 +11,11 @@
           >
             {{ getIsOnShelf(shelf) }} {{ shelf.name }}
           </button>
+        </div>
+        <div v-if="$store.state.currentUser.hasContentEditPermission">
+          <router-link :to="`/book/${book.id}/edit`">
+            {{ $t('book.edit') }}
+          </router-link>
         </div>
         <div class="book__cover">
           <img :src="placeholderImage"
@@ -115,29 +119,28 @@ export default Vue.extend({
     }
   },
   beforeRouteEnter(to, from, next) {
-
-    const shelves = DataService.instance.getAllShelves()
     const book = DataService.instance.getBook(to.params.id);
 
-    Promise.all([shelves, book]).then(data => {
+    book.then(data => {
       next((vm: any) => {
-        vm.setBookData(data[1])
-        vm.setShelvesData(data[0])
+        vm.setBookData(data)
+        if (vm.$store.state.currentUser) {
+          const shelves = DataService.instance.getAllShelves().then(data => vm.setShelvesData(data))
+        }
       });
     });
   },
   beforeRouteUpdate(to, from, next) {
-    this.book = {} as Book;
-    this.authorSimilar = [];
+    DataService.instance.getBook(to.params.id).then(data => {
+      this.setBookData(data)
+      this.$forceUpdate()
 
-    const shelves = DataService.instance.getAllShelves()
-    const book = DataService.instance.getBook(to.params.id);
+      console.log(data)
+      console.log(this)
 
-    Promise.all([shelves, book]).then(data => {
-      next((vm: any) => {
-        vm.setBookData(data[1])
-        vm.setShelvesData(data[0])
-      });
+      if (this.$store.state.currentUser) {
+        DataService.instance.getAllShelves().then(data => this.setShelvesData(data))
+      }
     });
   },
   methods: {

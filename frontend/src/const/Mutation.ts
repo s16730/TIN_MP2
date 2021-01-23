@@ -3,4 +3,5 @@ export enum Mutation {
   AddErrors = "AddErrors",
   SetGlobalMessage = "SetGlobalMessage",
   ClearGlobalMessage = "ClearGlobalMessage",
+  SetCurrentUser = "SetCurrentUser",
 }

@@ -2,7 +2,7 @@
   <div :class="`component{ component--{name}`">
     <section class="container section section--register">
       <Form class="form--register"
-            data-url="/api/user/register"
+            :data-url="`/api/user/${user.id}/edit`"
       >
         <h1 class="form__header">
           {{ $t('user.edit') }}
@@ -21,7 +21,6 @@
                     data-validate="required length"
                     :default-value="user.username"
         />
-
         <FieldSubmit :label="$t('save')"/>
       </Form>
     </section>

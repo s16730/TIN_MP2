@@ -31,6 +31,9 @@
           <router-link :to="`/user/${currentUser.id}`">
             {{ currentUser.username }}
           </router-link>
+          <button @click="logout">
+            Wyloguj
+          </button>
         </div>
       </div>
       <div class="header__menu">
@@ -39,6 +42,18 @@
                        to="/"
           >
             {{ $t('Home') }}
+          </router-link>
+          <router-link class="header__menu__list__item"
+                       v-if="$store.state.currentUser.hasContentEditPermission"
+                       :to="`/author/add`"
+          >
+            {{ $t('author.add') }}
+          </router-link>
+          <router-link class="header__menu__list__item"
+                       v-if="$store.state.currentUser.hasContentEditPermission"
+                       :to="`/book/add`"
+          >
+            {{ $t('book.add') }}
           </router-link>
         </nav>
       </div>
@@ -78,6 +93,11 @@ export default Vue.extend({
         return this.$store.state.currentUser;
       },
     }),
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
   },
   components: {
     GlobalMessage,

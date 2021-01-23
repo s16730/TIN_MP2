@@ -36,7 +36,7 @@
             />
           </div>
           <div class="author__description">
-            <FieldTextarea name="bio"
+            <FieldTextarea field-name="bio"
                            :label="$t('author.bio')"
                            :default-value="data ? data.bio : ''"
             />
@@ -67,17 +67,25 @@ export default Vue.extend({
     }
   },
   beforeRouteEnter(to, from, next) {
-    DataService.instance.getAuthor(to.params.id).then(data => {
-      next((vm: any) => vm.setData(data));
-    });
+    if (to.params.id) {
+      DataService.instance.getAuthor(to.params.id).then(data => {
+        next((vm: any) => vm.setData(data));
+      });
+    } else {
+      next()
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.data = {} as Author;
 
-    DataService.instance.getAuthor(to.params.id).then(data => {
-      this.setData(data)
+    if (to.params.id) {
+      DataService.instance.getAuthor(to.params.id).then(data => {
+        this.setData(data)
+        next()
+      })
+    } else {
       next()
-    })
+    }
   },
   methods: {
     setData(data: AuthorResponse): void {
@@ -86,7 +94,7 @@ export default Vue.extend({
   },
   computed: {
     dataUrl(): string {
-      return this.data ? `/api/author/${this.data.id}/edit` : `/api/author/add`;
+      return this.data && this.data.id ? `/api/author/${this.data.id}/edit` : `/api/author/add`;
     }
   },
   components: {

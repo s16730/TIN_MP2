@@ -20,7 +20,9 @@ router.get('/', (req, res, next) => {
   BookController.getBooks(req, res)
 });
 
-router.get('/add', async (req, res, next) => {
+router.get('/add',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
   const user = await UserService.currentUser(req);
 
   if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {
@@ -29,7 +31,9 @@ router.get('/add', async (req, res, next) => {
     throw new ForbiddenException();
   }
 });
-router.post('/add', async (req, res, next) => {
+router.post('/add',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
   const user = await UserService.currentUser(req);
 
   if (user && ArrayHelper.intersect(user.roles, [UserRole.ADMIN, UserRole.EDITOR])) {

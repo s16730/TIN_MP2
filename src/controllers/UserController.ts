@@ -7,7 +7,6 @@ import { UserRole } from "@entities/UserRole";
 import { NotFoundException } from "@/exceptions/NotFoundException";
 import jwt from "jsonwebtoken";
 import { passportConfig } from "@/config/passportConfig";
-import { emit } from "cluster";
 
 export class UserController {
 
@@ -38,7 +37,17 @@ export class UserController {
 
 
     // @ts-ignore
-    delete(user.password)
+    delete (user.password)
+
+    // @ts-ignore
+    user.hasUserEditPermission = user.roles.includes(UserRole.ADMIN)
+    // @ts-ignore
+    user.hasBlockPermission = user.roles.includes(UserRole.ADMIN)
+    // @ts-ignore
+    user.hasPasswordChangePermission = user.roles.includes(UserRole.ADMIN);
+
+    // @ts-ignore
+    user.hasContentEditPermission = user.roles.includes(UserRole.ADMIN) || user.roles.includes(UserRole.EDITOR)
 
     if (!user) {
       res.end(JSON.stringify({
@@ -107,5 +116,33 @@ export class UserController {
       res.end(JSON.stringify({ errors }))
     }
 
+  }
+
+  static async update(req: Request, res: Response) {
+    const body = req.body;
+    const errors = UserService.validateUpdate(body);
+
+
+    if (0 === errors.length) {
+      const user = (await UserService.instance.getUsers({ id: req.params.id }))[0];
+
+      const emailUser = (await UserService.instance.getUsers({ email: body.email }))[0]
+      const usernameUser = (await UserService.instance.getUsers({ email: body.username }))[0]
+
+      if (user && !emailUser && !usernameUser) {
+        const repository = getRepository(User);
+
+        user.email = req.body.email;
+        user.username = req.body.username;
+
+        await repository.save(user);
+      } else {
+        res.status(400).end(JSON.stringify({
+          message: "Użytkownik o tym adresie email/nazwie już istnieje"
+        }))
+      }
+    } else {
+      res.status(400).end(JSON.stringify({ errors }))
+    }
   }
 }

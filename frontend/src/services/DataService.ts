@@ -22,13 +22,18 @@ export class DataService {
     })).json();
   }
 
-  async getCurrentUser(): Promise<FullUserResponse> {
-    return (await fetch(EndpointService.getUrl(Endpoint.UserCurrent), {
+  async getCurrentUser(): Promise<FullUserResponse | false> {
+    const res = (await fetch(EndpointService.getUrl(Endpoint.UserCurrent), {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('token') || ''
       },
-    })).json();
+    }));
+
+    if (res.status === 200) {
+      return res.json()
+    } else return false;
+
   }
 
   async getAllUsers(): Promise<UserListResponse> {

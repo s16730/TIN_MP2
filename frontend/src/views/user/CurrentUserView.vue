@@ -9,22 +9,10 @@
       <div class="container user user--full">
         <div class="actions actions--user">
           <router-link class="actions__action"
-                       v-if="user.hasEditPermission"
+                       v-if="user.hasUserEditPermission || user.id === $store.state.currentUser.id"
                        :to="`/user/${user.id}/edit`"
           >
             {{ $t('user.edit') }}
-          </router-link>
-          <router-link class="actions__action"
-                       v-if="user.hasBlockPermission"
-                       :to="`/user/${user.id}/block`"
-          >
-            {{ $t('user.block') }}
-          </router-link>
-          <router-link class="actions__action"
-                       v-if="user.hasPasswordChangePermission"
-                       :to="`/user/change-password`"
-          >
-            {{ $t('user.changePassword') }}
           </router-link>
         </div>
         <div class="user__avatar">
@@ -66,6 +54,10 @@
         <h1>
           {{ $t('shelves.plural') }}
         </h1>
+        <router-link to="/shelf/add"
+        >
+          {{ $t('shelf.create') }}
+        </router-link>
         <div class="list list--list">
           <router-link v-for="shelf of shelves"
                        :key="shelf.id"
@@ -95,6 +87,7 @@ import placeholderImage from "@/assets/960x960.png";
 import personImage from "@/assets/person.png";
 import { DataService } from "@/services/DataService";
 import { FullUserResponse, Shelf, UserResponse } from "@/types";
+import { Mutation } from "@/const/Mutation";
 
 
 export default Vue.extend({
@@ -116,7 +109,9 @@ export default Vue.extend({
     this.user = {};
     this.shelves = [];
     DataService.instance.getCurrentUser().then(data => {
-      this.setData(data)
+      if (data) {
+        this.setData(data)
+      }
       next()
     })
   },
@@ -124,6 +119,7 @@ export default Vue.extend({
     setData(data: FullUserResponse): void {
       this.user = data.user;
       this.shelves = data.shelves;
+      this.$store.commit(Mutation.SetCurrentUser, data.user)
     }
   },
 });

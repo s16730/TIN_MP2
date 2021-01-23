@@ -90,17 +90,25 @@ export default Vue.extend({
     }
   },
   beforeRouteEnter(to, from, next) {
-    DataService.instance.getBook(to.params.id).then(data => {
-      next((vm: any) => vm.setData(data));
-    });
+    if (to.params.id) {
+      DataService.instance.getBook(to.params.id).then(data => {
+        next((vm: any) => vm.setData(data));
+      });
+    } else {
+      next()
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.data = {} as Book;
 
-    DataService.instance.getBook(to.params.id).then(data => {
-      this.setData(data)
+    if (to.params.id) {
+      DataService.instance.getBook(to.params.id).then(data => {
+        this.setData(data)
+        next()
+      })
+    } else {
       next()
-    })
+    }
   },
   methods: {
     setData(data: BookResponse): void {
@@ -118,7 +126,7 @@ export default Vue.extend({
       return authorString;
     },
     dataUrl(): string {
-      return this.data ? `/api/book/${this.data.id}/edit` : `/api/book/add`;
+      return this.data && this.data.id ? `/api/book/${this.data.id}/edit` : `/api/book/add`;
     }
   },
   components: {

@@ -23,7 +23,7 @@ export default Vue.extend({
       const data: DataObject = {};
       const formData = new FormData(this.$refs.form as HTMLFormElement);
 
-      formData.forEach(((value, key) => data[key] = value))
+      formData.forEach(((value, key) => data[key] = value));
 
       this.$store.dispatch("submitForm", {
         url: this.dataUrl,

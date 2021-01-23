@@ -3,6 +3,12 @@
        :key="author.id"
   >
     <section class="section section--author">
+
+      <div v-if="$store.state.currentUser.hasContentEditPermission">
+        <router-link :to="`/author/${author.id}/edit`">
+          {{ $t('author.edit') }}
+        </router-link>
+      </div>
       <div class="container author author--full">
         <div class="author__photo">
           <img :src="placeholderImage"

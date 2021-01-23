@@ -56,6 +56,10 @@ export interface User {
   password: string;
   shelves: Shelf[];
   createdOn: Date;
+  hasUserEditPermission: boolean;
+  hasBlockPermission: boolean;
+  hasPasswordChangePermission: boolean;
+  hasContentEditPermission: boolean;
 }
 
 export interface FormSubmit {
@@ -109,4 +113,5 @@ export interface UserListResponse {
   users: User[],
 }
 
-export interface ImageSourceSet{}
+export interface ImageSourceSet {
+}
