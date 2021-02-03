@@ -4,7 +4,7 @@
   >
     <section class="section section--author">
 
-      <div v-if="$store.state.currentUser.hasContentEditPermission">
+      <div v-if="$store.state.currentUser && $store.state.currentUser.hasContentEditPermission">
         <router-link :to="`/author/${author.id}/edit`">
           {{ $t('author.edit') }}
         </router-link>

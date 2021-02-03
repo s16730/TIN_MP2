@@ -44,13 +44,13 @@
             {{ $t('Home') }}
           </router-link>
           <router-link class="header__menu__list__item"
-                       v-if="$store.state.currentUser.hasContentEditPermission"
+                       v-if="hasContentEditPermission"
                        :to="`/author/add`"
           >
             {{ $t('author.add') }}
           </router-link>
           <router-link class="header__menu__list__item"
-                       v-if="$store.state.currentUser.hasContentEditPermission"
+                       v-if="hasContentEditPermission"
                        :to="`/book/add`"
           >
             {{ $t('book.add') }}
@@ -90,7 +90,10 @@ export default Vue.extend({
   computed: {
     ...mapState({
       currentUser(): boolean {
-        return this.$store.state.currentUser;
+        return this.$store.state.currentUser !== null;
+      },
+      hasContentEditPermission(){
+        return this.$store.state.currentUser && this.$store.state.currentUser.hasContentEditPermission
       },
     }),
   },

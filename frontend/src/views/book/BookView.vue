@@ -12,7 +12,7 @@
             {{ getIsOnShelf(shelf) }} {{ shelf.name }}
           </button>
         </div>
-        <div v-if="$store.state.currentUser.hasContentEditPermission">
+        <div v-if="$store.state.currentUser && $store.state.currentUser.hasContentEditPermission">
           <router-link :to="`/book/${book.id}/edit`">
             {{ $t('book.edit') }}
           </router-link>

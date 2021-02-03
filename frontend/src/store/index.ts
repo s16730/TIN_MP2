@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { ErrorObject, FormSubmit } from "@/types";
+import { ErrorObject, FormSubmit, Shelf } from "@/types";
 import { Mutation } from "@/const/Mutation";
 import router from "@/router";
 import { DataService } from "@/services/DataService";
 import { EndpointService } from "@/services/EndpointService";
 import { Endpoint } from "@/const/Endpoint";
+import { UserRole } from "../../../src/entities/UserRole";
 
 Vue.use(Vuex)
 
@@ -38,11 +39,15 @@ export default new Vuex.Store({
   },
   actions: {
     async init({ commit, state }) {
-      const result = await DataService.instance.getCurrentUser()
-
-      if (result && result.user) {
-        state.currentUser = result.user;
+      try {
+        const result = await DataService.instance.getCurrentUser()
+        if (result && result.user) {
+          state.currentUser = result.user;
+        }
+      } catch (e) {
+        console.log(e)
       }
+
     },
     async submitForm({ commit, state }, formSubmit: FormSubmit) {
       commit(Mutation.ClearErrors)

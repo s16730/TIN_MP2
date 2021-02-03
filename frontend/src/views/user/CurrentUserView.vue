@@ -9,7 +9,7 @@
       <div class="container user user--full">
         <div class="actions actions--user">
           <router-link class="actions__action"
-                       v-if="user.hasUserEditPermission || user.id === $store.state.currentUser.id"
+                       v-if="user.hasUserEditPermission || ($store.state.currentUser && user.id === $store.state.currentUser.id)"
                        :to="`/user/${user.id}/edit`"
           >
             {{ $t('user.edit') }}

@@ -57,7 +57,15 @@ if (process.env.NODE_ENV === 'development') {
 
 // Security
 if (process.env.NODE_ENV === 'production') {
-  app.use(helmet());
+  app.use(helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'", "'unsafe-inline'"],
+      stylesSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'",],
+      frameSrc: ["'self'"],
+      fontSrc: ["'self'", "fonts.googleapis.com", "fonts.gstatic.com", ""],
+    }
+  }));
 }
 
 const appDir = path.dirname(require.main!.filename)
@@ -84,10 +92,6 @@ dbService.createConnection().then(() => {
 
 // Add APIs
   app.use('/', BaseRouter);
-// app.use('/api', BaseRouter);
-// router.get('', (req, res, next) => {
-//     res.render("page/book/bookView")
-// })
 
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
