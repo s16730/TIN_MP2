@@ -42,7 +42,7 @@
               {{ $t('user.creationDate') }}
             </span>
             <span>
-              {{ user.createdOn }}
+              {{ user.createdOnReadable }}
             </span>
           </div>
         </div>
@@ -55,6 +55,7 @@
           {{ $t('shelves.plural') }}
         </h1>
         <router-link to="/shelf/add"
+                     class="new-shelf"
         >
           {{ $t('shelf.create') }}
         </router-link>
@@ -86,7 +87,7 @@ import Vue from "vue";
 import placeholderImage from "@/assets/960x960.png";
 import personImage from "@/assets/person.png";
 import { DataService } from "@/services/DataService";
-import { FullUserResponse, Shelf, UserResponse } from "@/types";
+import { FullUserResponse, Shelf, User, UserResponse } from "@/types";
 
 
 export default Vue.extend({
@@ -96,7 +97,7 @@ export default Vue.extend({
       placeholderImage,
       personImage,
       shelves: [] as Shelf[],
-      user: {},
+      user: {} as User,
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -105,7 +106,7 @@ export default Vue.extend({
     });
   },
   beforeRouteUpdate(to, from, next) {
-    this.user = {};
+    this.user = {} as any;
     this.shelves = [];
     DataService.instance.getUser(to.params.id).then(data => {
       this.setData(data)
@@ -114,7 +115,13 @@ export default Vue.extend({
   },
   methods: {
     setData(data: FullUserResponse): void {
-      this.user = data.user;
+      this.user = data.user as User;
+      this.user.createdOn = new Date(this.user.createdOn)
+      this.user.createdOnReadable =
+        (data.user.createdOn.getDate() > 9 ? data.user.createdOn.getDate() : '0' + data.user.createdOn.getDate()) + '-' +
+        ((data.user.createdOn.getMonth() + 1) > 9 ? (data.user.createdOn.getMonth() + 1) : '0' + (data.user.createdOn.getMonth() + 1)) + '-' +
+        data.user.createdOn.getFullYear();
+
       this.shelves = data.shelves;
     }
   },
@@ -124,5 +131,7 @@ export default Vue.extend({
 <style scoped
        lang="scss"
 >
-
+.new-shelf {
+  margin-bottom: 15px;
+}
 </style>

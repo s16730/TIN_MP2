@@ -8,6 +8,7 @@
                   :key="shelf.id"
                   @click="toggleOnShelf(shelf)"
                   :ref="`shelf${shelf.id}`"
+                  :class="`shelf-actions__button isOnShelf${getIsOnShelf(shelf)}`"
           >
             {{ getIsOnShelf(shelf) }} {{ shelf.name }}
           </button>
@@ -192,5 +193,23 @@ export default Vue.extend({
 <style scoped
        lang="scss"
 >
+.shelf-actions {
+  width: 100%;
+  margin-bottom: 10px;
 
+  &__button {
+    cursor: pointer;
+    outline: none;
+    background: transparent;
+    border: 1px solid gray;
+
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+
+    &.isOnShelf- {
+      border: 1px solid green;
+    }
+  }
+}
 </style>

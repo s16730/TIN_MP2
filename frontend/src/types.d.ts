@@ -56,6 +56,7 @@ export interface User {
   password: string;
   shelves: Shelf[];
   createdOn: Date;
+  createdOnReadable: string;
   hasUserEditPermission: boolean;
   hasBlockPermission: boolean;
   hasPasswordChangePermission: boolean;

@@ -14,7 +14,7 @@
         </div>
 
         <div class="account account--logged-out"
-             v-if="!currentUser"
+             v-if="!isCurrentUser"
         >
           <router-link class="account__button button"
                        to="/user/register"
@@ -31,8 +31,8 @@
           <router-link :to="`/user/${currentUser.id}`">
             {{ currentUser.username }}
           </router-link>
-          <button @click="logout">
-            Wyloguj
+          <button class="account__button button" @click="logout">
+            {{ $t('Logout') }}
           </button>
         </div>
       </div>
@@ -89,8 +89,11 @@ export default Vue.extend({
   },
   computed: {
     ...mapState({
-      currentUser(): boolean {
+      isCurrentUser(): boolean {
         return this.$store.state.currentUser !== null;
+      },
+      currentUser(): boolean {
+        return this.$store.state.currentUser;
       },
       hasContentEditPermission(){
         return this.$store.state.currentUser && this.$store.state.currentUser.hasContentEditPermission

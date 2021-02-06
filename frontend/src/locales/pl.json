@@ -1,6 +1,7 @@
 {
   "Library": "Biblioteczka",
   "Login": "Zaloguj się",
+  "Logout": "Wyloguj",
   "Register": "Zarejestruj się",
   "Home": "Strona główna",
   "save": "Zapisz",
@@ -11,6 +12,7 @@
     "login": "Zaloguj się",
     "register": "Zarejestruj się",
     "password": "Hasło",
+    "edit": "Edytuj",
     "repeatPassword": "Powtórz hasło"
   },
   "shelves": {
@@ -21,7 +23,8 @@
     "add": "Dodaj półkę",
     "name": "Nazwa",
     "positions": "{number} pozycji",
-    "edit": "Edytuj półkę"
+    "edit": "Edytuj półkę",
+    "create":  "Nowa półka"
   },
   "books": {
     "popular": "Popularne książki:"
