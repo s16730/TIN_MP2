@@ -24,7 +24,7 @@
     "name": "Nazwa",
     "positions": "{number} pozycji",
     "edit": "Edytuj półkę",
-    "create":  "Nowa półka"
+    "create": "Nowa półka"
   },
   "books": {
     "popular": "Popularne książki:"
@@ -39,7 +39,8 @@
     "similar": {
       "plural": "Książki tych samych autorów",
       "singular": "Książki tego samego autora"
-    }
+    },
+    "add": "Dodaj książkę"
   },
   "authors": {
     "popular": "Popularni autorzy"
@@ -48,6 +49,7 @@
     "otherBooks": "Książki tego autora:",
     "bio": "Opis",
     "name": "Imię",
-    "surname": "Nazwisko"
+    "surname": "Nazwisko",
+    "add": "Dodaj autora"
   }
 }
